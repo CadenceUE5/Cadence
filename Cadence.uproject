@@ -42,6 +42,10 @@
 				"Win64",
 				"Android"
 			]
+		},
+		{
+			"Name": "ConsoleVariables",
+			"Enabled": true
 		}
 	],
 	"TargetPlatforms": [
