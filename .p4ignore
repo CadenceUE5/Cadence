@@ -26,10 +26,12 @@
 
 # Visual Studio configuration files
 .vs/
-*.vsconfig
+.vsconfig
 
-*/Binaries/*
-*/Build/*
+Binaries/
+Build/
+Plugins/**/Intermediate/
+Plugins/**/Binaries/
 
 # Ignore all Visual Studio temp files.
 *.suo
