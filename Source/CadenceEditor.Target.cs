@@ -10,6 +10,8 @@ public class CadenceEditorTarget : TargetRules
 		Type = TargetType.Editor;
 		DefaultBuildSettings = BuildSettingsVersion.V5;
 
-		ExtraModuleNames.AddRange( new string[] { "Cadence" } );
+        IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_6;
+
+        ExtraModuleNames.AddRange( new string[] { "Cadence" } );
 	}
 }

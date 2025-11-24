@@ -23,4 +23,6 @@ public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintCallable, Category = "RenderTarget")
+	void ConvertRenderTargetToDataPoints(UTextureRenderTarget2D* RT, TArray<FVector2D>& OutPoints);
 };
