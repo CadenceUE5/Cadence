@@ -4,25 +4,63 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "Engine/DataAsset.h"
 #include "AGestureRecorder.generated.h"
 
-UCLASS()
-class CADENCE_API AAGestureRecorder : public AActor
+USTRUCT(BlueprintType) struct FGestureData : public FTableRowBase
 {
-	GENERATED_BODY()
-	
-public:	
-	// Sets default values for this actor's properties
-	AAGestureRecorder();
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FString GestureName;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TArray<FVector2D> Points;
+};
+
+UCLASS(BlueprintType) class UGestureDatabaseAsset : public UDataAsset
+{
+    GENERATED_BODY()
+
+public:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TArray<FGestureData> Gestures;
+};
+
+UCLASS() class CADENCE_API AAGestureRecorder : public AActor
+{
+    GENERATED_BODY()
+
+public:
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "FileIO")
+    FString m_DatabaseFilePath;
+
+    // Sets default values for this actor's properties
+    AAGestureRecorder();
 
 protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+    UFUNCTION(BlueprintCallable, Category = "FileIO")
+    bool LoadGestureDatabaseFromJson(const FString& FilePath, UGestureDatabaseAsset*& OutDB);
 
-	UFUNCTION(BlueprintCallable, Category = "RenderTarget")
-	void ConvertRenderTargetToDataPoints(UTextureRenderTarget2D* RT, TArray<FVector2D>& OutPoints);
+    UFUNCTION(BlueprintCallable, Category = "FileIO")
+    bool AppendGestureToDatabase(const FString& FilePath, const FGestureData& Gesture);
+
+    UFUNCTION(BlueprintCallable, Category = "FileIO")
+    bool ExportGestureDatabaseToJson(const FString& FilePath, const UGestureDatabaseAsset* DB);
+
+public:
+    UFUNCTION(BlueprintCallable, Category = "GestureUtility")
+    int32 GetGestureCount() const;
+
+    UFUNCTION(BlueprintCallable, Category = "GestureUtility")
+    TArray<FGestureData> GetAllGestures() const;
+
+    // Called every frame
+    virtual void Tick(float DeltaTime) override;
+
+private:
+    UGestureDatabaseAsset* m_GestureDB;
 };
