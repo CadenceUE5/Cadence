@@ -62,5 +62,5 @@ public:
     virtual void Tick(float DeltaTime) override;
 
 private:
-    UGestureDatabaseAsset* m_GestureDB;
+    UGestureDatabaseAsset* m_GestureDB = nullptr;
 };

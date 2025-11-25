@@ -73,6 +73,10 @@ TArray<FGestureData> AAGestureRecorder::GetAllGestures() const
     {
         return m_GestureDB->Gestures;
     }
+    if (!m_GestureDB->Gestures.IsValidIndex(0) && m_GestureDB->Gestures.Num() > 0)
+    {
+        return {};
+    }
 
     return {};
 }
