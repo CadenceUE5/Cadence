@@ -43,7 +43,7 @@
 		},
 		{
 			"Name": "OculusXR",
-			"Enabled": true,
+			"Enabled": false,
 			"SupportedTargetPlatforms": [
 				"Win64",
 				"Android"
