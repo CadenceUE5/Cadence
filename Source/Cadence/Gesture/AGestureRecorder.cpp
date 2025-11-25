@@ -40,11 +40,15 @@ bool AAGestureRecorder::LoadGestureDatabaseFromJson(const FString& FilePath,
         return false;
     }
 
-    return FJsonObjectConverter::JsonObjectStringToUStruct(JsonString, OutDB, 0, 0);
+    if (!FJsonObjectConverter::JsonObjectStringToUStruct(JsonString, &OutDB->Database, 0, 0))
+    {
+        return false;
+    }
+    return true;
 }
 
 bool AAGestureRecorder::ExportGestureDatabaseToJson(const FString& FilePath,
-                                                    const UGestureDatabaseAsset* DB)
+                                                    UGestureDatabaseAsset* DB)
 {
     FString OutputJson;
     if (!FJsonObjectConverter::UStructToJsonObjectString(*DB, OutputJson))
@@ -57,28 +61,27 @@ bool AAGestureRecorder::ExportGestureDatabaseToJson(const FString& FilePath,
 
 bool AAGestureRecorder::AppendGestureToDatabase(const FString& FilePath, const FGestureData& Gesture)
 {
-    m_GestureDB->Gestures.Add(Gesture);
+    m_GestureDB->Database.Gestures.Add(Gesture);
 
     return this->ExportGestureDatabaseToJson(FilePath, m_GestureDB);
 }
 
-int32 AAGestureRecorder::GetGestureCount() const
+int32 AAGestureRecorder::GetGestureCount()
 {
-    return (m_GestureDB ? m_GestureDB->Gestures.Num() : 0);
+    if (!m_GestureDB)
+    {
+        LoadGestureDatabaseFromJson(m_DatabaseFilePath, m_GestureDB);
+    }
+    return (m_GestureDB ? m_GestureDB->Database.Gestures.Num() : 0);
 }
 
-TArray<FGestureData> AAGestureRecorder::GetAllGestures() const
+TArray<FGestureData> AAGestureRecorder::GetAllGestures()
 {
-    if (m_GestureDB)
+    if (!m_GestureDB)
     {
-        return m_GestureDB->Gestures;
+        LoadGestureDatabaseFromJson(m_DatabaseFilePath, m_GestureDB);
     }
-    if (!m_GestureDB->Gestures.IsValidIndex(0) && m_GestureDB->Gestures.Num() > 0)
-    {
-        return {};
-    }
-
-    return {};
+    return m_GestureDB ? m_GestureDB->Database.Gestures : TArray<FGestureData>{};
 }
 
 // Called every frame

@@ -18,13 +18,23 @@ USTRUCT(BlueprintType) struct FGestureData : public FTableRowBase
     TArray<FVector2D> Points;
 };
 
+USTRUCT(BlueprintType)
+
+struct FGestureDatabaseStruct
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    TArray<FGestureData> Gestures;
+};
+
 UCLASS(BlueprintType) class UGestureDatabaseAsset : public UDataAsset
 {
     GENERATED_BODY()
 
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    TArray<FGestureData> Gestures;
+    FGestureDatabaseStruct Database;
 };
 
 UCLASS() class CADENCE_API AAGestureRecorder : public AActor
@@ -49,18 +59,19 @@ protected:
     bool AppendGestureToDatabase(const FString& FilePath, const FGestureData& Gesture);
 
     UFUNCTION(BlueprintCallable, Category = "FileIO")
-    bool ExportGestureDatabaseToJson(const FString& FilePath, const UGestureDatabaseAsset* DB);
+    bool ExportGestureDatabaseToJson(const FString& FilePath, UGestureDatabaseAsset* DB);
 
 public:
     UFUNCTION(BlueprintCallable, Category = "GestureUtility")
-    int32 GetGestureCount() const;
+    int32 GetGestureCount();
 
     UFUNCTION(BlueprintCallable, Category = "GestureUtility")
-    TArray<FGestureData> GetAllGestures() const;
+    TArray<FGestureData> GetAllGestures();
 
     // Called every frame
     virtual void Tick(float DeltaTime) override;
 
 private:
-    UGestureDatabaseAsset* m_GestureDB = nullptr;
+    UPROPERTY()
+    UGestureDatabaseAsset* m_GestureDB;
 };
