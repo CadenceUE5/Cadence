@@ -33,10 +33,6 @@ Build/
 Plugins/**/Intermediate/
 Plugins/**/Binaries/
 
-# Keep packaged installation for MetaXR plugin
-!Plugins/MetaXR/Binaries/
-!Plugins/MetaXR/Intermediate/
-
 # Ignore all Visual Studio temp files.
 *.suo
 *.opensdf
