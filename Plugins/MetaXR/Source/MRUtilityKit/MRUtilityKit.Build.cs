@@ -9,6 +9,7 @@ public class MRUtilityKit : ModuleRules
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
         
         bUseUnity = true;
+        // bUsePrecompiled = true;
 
         PublicDependencyModuleNames.AddRange(
             new string[]

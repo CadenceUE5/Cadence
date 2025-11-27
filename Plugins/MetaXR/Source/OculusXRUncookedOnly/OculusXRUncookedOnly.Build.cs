@@ -8,6 +8,7 @@ public class OculusXRUncookedOnly : ModuleRules
     public OculusXRUncookedOnly(ReadOnlyTargetRules Target) : base(Target)
     {
         bUseUnity = true;
+        // bUsePrecompiled = true;
 
         PrivateDependencyModuleNames.AddRange(
             new string[] {

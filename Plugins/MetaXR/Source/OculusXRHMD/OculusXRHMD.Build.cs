@@ -12,6 +12,7 @@ namespace UnrealBuildTool.Rules
         {
             
             bUseUnity = true;
+            // bUsePrecompiled = true;
 
             var EngineDir = Path.GetFullPath(Target.RelativeEnginePath);
 

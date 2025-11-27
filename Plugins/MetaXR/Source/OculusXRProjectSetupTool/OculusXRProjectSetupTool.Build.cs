@@ -8,6 +8,7 @@ public class OculusXRProjectSetupTool : ModuleRules
     public OculusXRProjectSetupTool(ReadOnlyTargetRules Target) : base(Target)
     {
         bUseUnity = true;
+        // bUsePrecompiled = true;
 
         PrivateIncludePaths.AddRange(
             new string[] {

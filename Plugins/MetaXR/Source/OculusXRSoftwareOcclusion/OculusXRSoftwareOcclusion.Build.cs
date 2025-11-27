@@ -9,6 +9,7 @@ public class OculusXRSoftwareOcclusion : ModuleRules
     public OculusXRSoftwareOcclusion(ReadOnlyTargetRules Target) : base(Target)
     {
         bUseUnity = true;
+        // bUsePrecompiled = true;
         
         PublicDependencyModuleNames.AddRange(
             new string[]

@@ -9,7 +9,7 @@ public class EngineTelemetry : ModuleRules
 	public EngineTelemetry(ReadOnlyTargetRules Target) : base(Target)
 	{
 		Type = ModuleType.External;
-
+        // bUsePrecompiled = true;
 
 		PublicIncludePaths.Add(Path.Combine(ModuleDirectory, "Include"));
 

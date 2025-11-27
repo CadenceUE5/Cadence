@@ -7,6 +7,7 @@ public class MRUtilityKitEditor : ModuleRules
     public MRUtilityKitEditor(ReadOnlyTargetRules Target) : base(Target)
     {
         bUseUnity = true;
+        // bUsePrecompiled = true;
 
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
 
