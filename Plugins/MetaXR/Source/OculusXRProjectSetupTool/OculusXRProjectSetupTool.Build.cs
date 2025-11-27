@@ -1,0 +1,59 @@
+// Copyright (c) Meta Platforms, Inc. and affiliates.
+
+using UnrealBuildTool;
+using System.IO;
+
+public class OculusXRProjectSetupTool : ModuleRules
+{
+    public OculusXRProjectSetupTool(ReadOnlyTargetRules Target) : base(Target)
+    {
+        bUsePrecompiled = true;
+
+        bUseUnity = true;
+
+        PrivateIncludePaths.AddRange(
+            new string[] {
+                "OculusXRHMD/Private",
+                "OculusXRUncookedOnly/Private",
+                Path.Combine(EngineDirectory, "Source/Developer/Android/AndroidPlatformEditor/Private")
+            });
+
+        PublicDependencyModuleNames.AddRange(
+            new string[]
+            {
+                "Core",
+                "CoreUObject",
+                "Engine"
+            }
+        );
+
+        PrivateDependencyModuleNames.AddRange(
+            new string[]
+            {
+                "Projects",
+                "UnrealEd",
+                "LevelEditor",
+                "Slate",
+                "SlateCore",
+                "EditorStyle",
+                "EngineSettings",
+                "OculusXRHMD",
+                "OculusXRMovement",
+                "OculusXRPassthrough",
+                "OculusXRAnchors",
+                "OculusXRScene",
+                "OculusXRTelemetry",
+                "OculusXRUncookedOnly",
+                "AndroidRuntimeSettings",
+                "AndroidPlatformEditor",
+                "LauncherServices",
+                "ToolWidgets",
+                "WorkspaceMenuStructure",
+                "PluginBrowser",
+                "ToolMenus",
+                "RHI",
+                "BlueprintGraph",
+            }
+        );
+    }
+}
