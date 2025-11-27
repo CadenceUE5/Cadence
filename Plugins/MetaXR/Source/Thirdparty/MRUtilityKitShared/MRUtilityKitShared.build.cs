@@ -8,7 +8,6 @@ public class MRUtilityKitShared : ModuleRules
 {
     public MRUtilityKitShared(ReadOnlyTargetRules Target) : base(Target)
     {
-        bUsePrecompiled = true;
         Type = ModuleType.External;
 
         if (Target.Platform == UnrealTargetPlatform.Android)

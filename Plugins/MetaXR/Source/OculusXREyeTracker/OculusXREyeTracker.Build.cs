@@ -8,8 +8,7 @@ namespace UnrealBuildTool.Rules
         public OculusXREyeTracker(ReadOnlyTargetRules Target) : base(Target)
         {
             bUseUnity = true;
-            bUsePrecompiled = true;
-
+            
             if (Target.Platform == UnrealTargetPlatform.Win64 ||
                 Target.Platform == UnrealTargetPlatform.Android)
             {

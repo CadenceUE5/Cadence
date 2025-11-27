@@ -7,7 +7,6 @@ public class OculusXREditor : ModuleRules
 {
     public OculusXREditor(ReadOnlyTargetRules Target) : base(Target)
     {
-        bUsePrecompiled = true;
         bUseUnity = true;
 
         PrivateDependencyModuleNames.AddRange(

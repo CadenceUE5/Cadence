@@ -10,7 +10,7 @@ namespace UnrealBuildTool.Rules
     {
         public OculusXRHMD(ReadOnlyTargetRules Target) : base(Target)
         {
-            bUsePrecompiled = true;
+            
             bUseUnity = true;
 
             var EngineDir = Path.GetFullPath(Target.RelativeEnginePath);

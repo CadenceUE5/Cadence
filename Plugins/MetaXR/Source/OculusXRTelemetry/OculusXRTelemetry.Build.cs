@@ -8,8 +8,7 @@ namespace UnrealBuildTool.Rules
         public OculusXRTelemetry(ReadOnlyTargetRules Target) : base(Target)
         {
             bUseUnity = false;
-            bUsePrecompiled = true;
-
+            
             PrivateDependencyModuleNames.AddRange(
                 new string[]
                 {

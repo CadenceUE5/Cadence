@@ -7,8 +7,7 @@ public class MRUtilityKit : ModuleRules
     public MRUtilityKit(ReadOnlyTargetRules Target) : base(Target)
     {
         PCHUsage = ModuleRules.PCHUsageMode.UseExplicitOrSharedPCHs;
-        bUsePrecompiled = true;
-
+        
         bUseUnity = true;
 
         PublicDependencyModuleNames.AddRange(

@@ -8,8 +8,7 @@ namespace UnrealBuildTool.Rules
         public OculusXRColocation(ReadOnlyTargetRules Target) : base(Target)
         {
             bUseUnity = true;
-            bUsePrecompiled = true;
-
+            
             PrivateDependencyModuleNames.AddRange(
                 new string[]
                 {

@@ -8,7 +8,6 @@ public class EngineTelemetry : ModuleRules
 {
 	public EngineTelemetry(ReadOnlyTargetRules Target) : base(Target)
 	{
-        bUsePrecompiled = true;
 		Type = ModuleType.External;
 
 

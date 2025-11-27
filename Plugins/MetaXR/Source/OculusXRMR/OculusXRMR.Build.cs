@@ -7,7 +7,6 @@ namespace UnrealBuildTool.Rules
     {
         public OculusXRMR(ReadOnlyTargetRules Target) : base(Target)
         {
-            bUsePrecompiled = true;
             bUseUnity = true;
 
             PrivateIncludePathModuleNames.AddRange(

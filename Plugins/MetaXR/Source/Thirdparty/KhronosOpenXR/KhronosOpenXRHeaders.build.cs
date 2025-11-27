@@ -4,7 +4,6 @@ public class KhronosOpenXRHeaders : ModuleRules
 {
     public KhronosOpenXRHeaders(ReadOnlyTargetRules Target) : base(Target)
     {
-        bUsePrecompiled = true;
         Type = ModuleType.External;
 
         string SourceDirectory = "$(PluginDir)/Source/ThirdParty/KhronosOpenXR/";

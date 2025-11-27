@@ -8,8 +8,7 @@ namespace UnrealBuildTool.Rules
         public OculusXRScene(ReadOnlyTargetRules Target) : base(Target)
         {
             bUseUnity = true;
-            bUsePrecompiled = true;
-
+            
             PrivateDependencyModuleNames.AddRange(
                 new string[]
                 {
