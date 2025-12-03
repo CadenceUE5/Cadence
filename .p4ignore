@@ -78,3 +78,5 @@ Engine/Programs/UnrealBuildTool/*
 # Ignore all .code-workspace files
 *.code-workspace
 .vscode/
+
+desktop.ini
