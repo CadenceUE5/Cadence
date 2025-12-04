@@ -630,6 +630,7 @@ void FMetaXRSimulator::FetchAvailableVersions(bool bCheckSkippedVersion)
 			{
 				return;
 			}
+            auto Settings = GetDefault<UOculusXRHMDRuntimeSettings>();
 			const TArray<TSharedPtr<FJsonValue>> Binaries = JsonObject->GetArrayField(TEXT("binaries"));
 			for (auto& Binary : Binaries)
 			{
@@ -643,6 +644,14 @@ void FMetaXRSimulator::FetchAvailableVersions(bool bCheckSkippedVersion)
 				{
 					continue;
 				}
+                if (Algo::FindByPredicate(Settings->SkippedVersions,
+                                          [Version = Version.Version](
+                                              const FString& InVersion)
+                                          { return CompareVersionStrings(InVersion, Version) == 0; })
+                    != nullptr)
+                {
+                    continue;
+                }
 				if (!BinaryObject->TryGetStringField(TEXT("download_url"), Version.DownloadUrl))
 				{
 					continue;
