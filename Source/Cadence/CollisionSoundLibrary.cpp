@@ -2,41 +2,34 @@
 
 
 #include "CollisionSoundLibrary.h"
+#include "SoundIDBank.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
+#include "Serialization/JsonSerializer.h"
 
 static TMap<FString, TMap<FString, TArray<FString>>> SoundTable;
 static TMap<FString, USoundBase*> LoadedSounds;
 
-void UCollisionSoundLibrary::LoadCollisionSounds()
+void UCollisionSoundLibrary::LoadCollisionSounds(USoundIDBank* Bank)
 {
-    // Will load the sound table from a json file
-    // For simplicity, hardcoded some values here for now
-    /*SoundTable.Add("Metal", {
-        {"Metal", {"Metal_Metal_Hit1", "Metal_Metal_Hit2"}},
-        {"Wood", {"Metal_Wood_Hit1", "Metal_Wood_Hit2"}}
-    });
-    SoundTable.Add("Wood", {
-        {"Wood", {"Wood_Wood_Hit1", "Wood_Wood_Hit2"}},
-        {"Metal", {"Wood_Metal_Hit1", "Wood_Metal_Hit2"}}
-    });*/
-    // Preload sounds into LoadedSounds map
-    /*for (const auto& MaterialAEntry : SoundTable)
+    // LOAD SOUND BANK
+    if (!Bank)
     {
-        for (const auto& MaterialBEntry : MaterialAEntry.Value)
+        UE_LOG(LogTemp, Error, TEXT("SoundIDBank is NULL"));
+        return;
+    }
+
+    // Load real sound assets into map LoadedSounds.Empty();
+    for (const FSoundIDEntry& Entry : Bank->Sounds)
+    {
+        if (Entry.Sound)
         {
-            for (const FString& SoundName : MaterialBEntry.Value)
-            {
-                if (!LoadedSounds.Contains(SoundName))
-                {
-                    USoundBase* Sound = LoadObject<USoundBase>(nullptr,
-    *FString::Printf(TEXT("/Game/Sounds/%s.%s"), *SoundName, *SoundName)); if (Sound)
-                    {
-                        LoadedSounds.Add(SoundName, Sound);
-                    }
-                }
-            }
+            LoadedSounds.Add(Entry.SoundID, Entry.Sound);
         }
-    }*/
-    FString JsonPath = FPaths::ProjectContentDir() + "Source/CollisionSounds.json";
+    }
+
+    // LOAD JSON
+    FString JsonPath = FPaths::ProjectContentDir() + "Data/CollisionSounds.json";
     FString JsonRaw;
 
     FFileHelper::LoadFileToString(JsonRaw, *JsonPath);

@@ -2,9 +2,11 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+//#include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "SoundIDBank.h"
 #include "CollisionSoundLibrary.generated.h"
+
 
 /**
  * 
@@ -16,7 +18,7 @@ class CADENCE_API UCollisionSoundLibrary : public UBlueprintFunctionLibrary
 	
 public:
     UFUNCTION(BlueprintCallable, Category = "Collision Sounds")
-    static void LoadCollisionSounds();
+    static void LoadCollisionSounds(USoundIDBank* Bank);
 
 	UFUNCTION(BlueprintCallable, Category = "Collision Sounds")
     static USoundBase* GetCollisionSound(
