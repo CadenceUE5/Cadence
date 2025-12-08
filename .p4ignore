@@ -44,12 +44,11 @@ Plugins/**/Binaries/
 # Ignore all Intermediate and Saved directories
 */Intermediate/*
 /Saved/*
-Plugins/**/Saved/
+/Plugins/**/Saved/
 
 !/Saved/UnrealBuildTool/BuildConfiguration.xml
 
 # Ignore UBT's configuration.xml
-Engine/Programs/UnrealBuildTool/*
 *.uatbuildrecord
 *.tmp
 
