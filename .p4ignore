@@ -45,7 +45,7 @@ Plugins/**/Binaries/
 */Intermediate/*
 */Saved/*
 
-!Saved/UnrealBuildTool/BuildConfiguration.xml
+!/Saved/UnrealBuildTool/BuildConfiguration.xml
 
 # Ignore UBT's configuration.xml
 Engine/Programs/UnrealBuildTool/*
