@@ -43,7 +43,8 @@ Plugins/**/Binaries/
 
 # Ignore all Intermediate and Saved directories
 */Intermediate/*
-*/Saved/*
+/Saved/*
+Plugins/**/Saved/
 
 !/Saved/UnrealBuildTool/BuildConfiguration.xml
 
