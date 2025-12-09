@@ -28,10 +28,17 @@
 .vs/
 .vsconfig
 
+# Ignore all Intermediate and Saved directories
+Intermediate/
 Binaries/
 Build/
+Saved/
 Plugins/**/Intermediate/
 Plugins/**/Binaries/
+Plugins/**/Saved/
+Plugins/**/Build/
+
+!**/BuildConfiguration.xml
 
 # Ignore all Visual Studio temp files.
 *.suo
@@ -41,14 +48,7 @@ Plugins/**/Binaries/
 **/DerivedDataCache/Boot.ddc
 **/DerivedDataCache/**/*.udd
 
-# Ignore all Intermediate and Saved directories
-*/Intermediate/*
-/Saved/*
-/Plugins/**/Saved/
-
-!/Saved/UnrealBuildTool/BuildConfiguration.xml
-
-# Ignore UBT's configuration.xml
+# Ignore UBT's configuration
 *.uatbuildrecord
 *.tmp
 
