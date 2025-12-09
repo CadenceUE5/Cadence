@@ -1,3 +1,4 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration"><VCProjectFileGenerator><MaxSharedIncludePaths>100000</MaxSharedIncludePaths></VCProjectFileGenerator>
+<Configuration xmlns="https://www.unrealengine.com/BuildConfiguration">
+    <VCProjectFileGenerator><MaxSharedIncludePaths>20000</MaxSharedIncludePaths></VCProjectFileGenerator>
 </Configuration>

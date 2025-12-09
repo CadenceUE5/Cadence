@@ -83,3 +83,4 @@ Plugins/**/Build/
 .vscode/
 
 desktop.ini
+settings.VisualStudio.json

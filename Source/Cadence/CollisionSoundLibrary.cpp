@@ -1,11 +1,13 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "CollisionSoundLibrary.h"
 #include "SoundIDBank.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "Serialization/JsonSerializer.h"
+
+#define ENUM_TO_STRING(EnumType, EnumValue)                                                        \
+    (StaticEnum<EnumType>()->GetNameStringByValue(static_cast<int64>(EnumValue)))
 
 static TMap<FString, TMap<FString, TArray<FString>>> SoundTable;
 static TMap<FString, USoundBase*> LoadedSounds;
@@ -29,7 +31,9 @@ void UCollisionSoundLibrary::LoadCollisionSounds(USoundIDBank* Bank)
     }
 
     // LOAD JSON
-    FString JsonPath = FPaths::ProjectContentDir() + "Data/CollisionSounds.json";
+    const FString JsonPath = FPaths::ProjectDir() + "Source/Cadence/Public/CollisionSounds.json";
+    UE_LOG(LogTemp, Log, TEXT("%s"), *JsonPath);
+
     FString JsonRaw;
 
     FFileHelper::LoadFileToString(JsonRaw, *JsonPath);
@@ -72,18 +76,17 @@ static int32 GetVelocityIndex(float Speed)
     return 2;
 }
 
-USoundBase* UCollisionSoundLibrary::GetCollisionSound(FName A, 
-                                                     FName B,
-                                                     float Velocity)
+USoundBase* UCollisionSoundLibrary::GetCollisionSound(ECollisionMaterial A, ECollisionMaterial B,
+                                                      float Velocity)
 {
-    FString KeyA = (A).ToString();
-    FString KeyB = (B).ToString();
+    FString KeyA = ENUM_TO_STRING(ECollisionMaterial, A);
+    FString KeyB = ENUM_TO_STRING(ECollisionMaterial, B);
 
     if (!SoundTable.Contains(KeyA))
     {
         return nullptr;
     }
-    if (!SoundTable[KeyA].Contains(KeyB))
+    if (!SoundTable[KeyA.ToLower()].Contains(KeyB.ToLower()))
     {
         return nullptr;
     }

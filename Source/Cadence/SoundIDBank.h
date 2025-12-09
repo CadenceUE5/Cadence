@@ -7,6 +7,7 @@
 #include "SoundIDBank.generated.h"
 
 USTRUCT(BlueprintType)
+
 struct FSoundIDEntry
 {
     GENERATED_BODY()
@@ -19,6 +20,7 @@ struct FSoundIDEntry
 };
 
 UCLASS(BlueprintType)
+
 class CADENCE_API USoundIDBank : public UDataAsset
 {
     GENERATED_BODY()
