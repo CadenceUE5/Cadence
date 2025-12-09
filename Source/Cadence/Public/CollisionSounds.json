@@ -1,0 +1,9 @@
+{
+  "metal": {
+    "wood": [ "snd_metal_wood_low", "snd_metal_wood_mid", "snd_metal_wood_high" ],
+    "plastic": [ "snd_metal_plastic_low", "snd_metal_plastic_mid", "snd_metal_plastic_high" ]
+  },
+  "wood": {
+    "metal": [ "snd_wood_metal_low", "snd_wood_metal_mid", "snd_wood_metal_high" ]
+  }
+}
