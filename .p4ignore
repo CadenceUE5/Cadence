@@ -38,7 +38,7 @@ Plugins/**/Binaries/
 Plugins/**/Saved/
 Plugins/**/Build/
 
-!**/BuildConfiguration.xml
+# !**/BuildConfiguration.xml
 
 # Ignore all Visual Studio temp files.
 *.suo
