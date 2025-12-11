@@ -26,21 +26,8 @@ struct FCollisionMaterialSoundRow : public FTableRowBase
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     ECollisionMaterial Material;
 
-    // Optional mappings – may be nullptr if not present in JSON
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    USoundBase* Metal = nullptr;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    USoundBase* Wood = nullptr;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    USoundBase* Plastic = nullptr;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    USoundBase* China = nullptr;
-
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    USoundBase* Stone = nullptr;
+    TMap<ECollisionMaterial, USoundBase*> Sounds;
 };
 
 /**
