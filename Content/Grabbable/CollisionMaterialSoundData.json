@@ -2,46 +2,56 @@
     {
         "Name": "Metal",
         "Material": "Metal",
-        "Metal": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/metal_metal.metal_metal'",
-        "Wood": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/metal_wood.metal_wood'",
-        "Plastic": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/metal_plastic.metal_plastic'",
-        "China": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/metal_china.metal_china'",
-        "Stone": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/metal_stone.metal_stone'"
+        "Sounds": {
+            "Metal": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_metal_metal.SFX_metal_metal'",
+            "Wood": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_metal_wood.SFX_metal_wood'",
+            "Plastic": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_metal_plastic.SFX_metal_plastic'",
+            "China": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_metal_china.SFX_metal_china'",
+            "Stone": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_metal_stone.SFX_metal_stone'"
+        }
     },
     {
         "Name": "Wood",
         "Material": "Wood",
-        "Metal": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/metal_wood.metal_wood'",
-        "Wood": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/wood_wood.wood_wood'",
-        "Plastic": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/wood_plastic.wood_plastic'",
-        "China": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/wood_china.wood_china'",
-        "Stone": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/wood_stone.wood_stone'"
+        "Sounds": {
+            "Metal": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_metal_wood.SFX_metal_wood'",
+            "Wood": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_wood_wood.SFX_wood_wood'",
+            "Plastic": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_wood_plastic.SFX_wood_plastic'",
+            "China": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_wood_china.SFX_wood_china'",
+            "Stone": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_wood_stone.SFX_wood_stone'"
+        }
     },
     {
         "Name": "Plastic",
         "Material": "Plastic",
-        "Metal": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/metal_plastic.metal_plastic'",
-        "Wood": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/wood_plastic.wood_plastic'",
-        "Plastic": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/plastic_plastic.plastic_plastic'",
-        "China": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/plastic_china.plastic_china'",
-        "Stone": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/plastic_stone.plastic_stone'"
+        "Sounds": {
+            "Metal": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_metal_plastic.SFX_metal_plastic'",
+            "Wood": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_wood_plastic.SFX_wood_plastic'",
+            "Plastic": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_plastic_plastic.SFX_plastic_plastic'",
+            "China": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_plastic_china.SFX_plastic_china'",
+            "Stone": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_plastic_stone.SFX_plastic_stone'"
+        }
     },
     {
         "Name": "China",
         "Material": "China",
-        "Metal": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/metal_china.metal_china'",
-        "Wood": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/wood_china.wood_china'",
-        "Plastic": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/plastic_china.plastic_china'",
-        "China": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/china_china.china_china'",
-        "Stone": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/china_stone.china_stone'"
+        "Sounds": {
+            "Metal": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_metal_china.SFX_metal_china'",
+            "Wood": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_wood_china.SFX_wood_china'",
+            "Plastic": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_plastic_china.SFX_plastic_china'",
+            "China": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_china_china.SFX_china_china'",
+            "Stone": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_china_stone.SFX_china_stone'"
+        }
     },
     {
         "Name": "Stone",
         "Material": "Stone",
-        "Metal": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/metal_stone.metal_stone'",
-        "Wood": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/wood_stone.wood_stone'",
-        "Plastic": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/plastic_stone.plastic_stone'",
-        "China": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/china_stone.china_stone'",
-        "Stone": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/stone_stone.stone_stone'"
+        "Sounds": {
+            "Metal": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_metal_stone.SFX_metal_stone'",
+            "Wood": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_wood_stone.SFX_wood_stone'",
+            "Plastic": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_plastic_stone.SFX_plastic_stone'",
+            "China": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_china_stone.SFX_china_stone'",
+            "Stone": "/Script/Engine.SoundWave'/Game/Audio/MaterialPairsSFX/SFX_stone_stone.SFX_stone_stone'"
+        }
     }
 ]
