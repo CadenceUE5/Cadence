@@ -18,10 +18,36 @@ enum class ECollisionMaterial : uint8
     MAX UMETA(Hidden)
 };
 
+USTRUCT(BlueprintType)
+struct FCollisionMaterialSoundRow : public FTableRowBase
+{
+    GENERATED_BODY()
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    ECollisionMaterial Material;
+
+    // Optional mappings – may be nullptr if not present in JSON
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    USoundBase* Metal = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    USoundBase* Wood = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    USoundBase* Plastic = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    USoundBase* China = nullptr;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    USoundBase* Stone = nullptr;
+};
+
 /**
  *
  */
-UCLASS() class CADENCE_API UCollisionSoundLibrary : public UBlueprintFunctionLibrary
+UCLASS()
+class CADENCE_API UCollisionSoundLibrary : public UBlueprintFunctionLibrary
 {
     GENERATED_BODY()
 

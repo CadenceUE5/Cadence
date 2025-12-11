@@ -1,10 +1,41 @@
 {
-  "Metal": {
-    "Wood": [ "snd_metal_wood_low", "snd_metal_wood_mid", "snd_metal_wood_high" ],
-    "Plastic": [ "snd_metal_plastic_low", "snd_metal_plastic_mid", "snd_metal_plastic_high" ],
-    "Metal": [ "snd_metal_metal_low", "snd_metal_metal_mid", "snd_metal_metal_high" ]
-  },
-  "Wood": {
-    "Metal": [ "snd_wood_metal_low", "snd_wood_metal_mid", "snd_wood_metal_high" ]
-  }
+    "Metal": {
+        "Metal": [ "snd_metal_metal_low", "snd_metal_metal_mid", "snd_metal_metal_high" ],
+        "Wood": [ "snd_metal_wood_low", "snd_metal_wood_mid", "snd_metal_wood_high" ],
+        "Plastic": [ "snd_metal_plastic_low", "snd_metal_plastic_mid", "snd_metal_plastic_high" ],
+        "China": [ "snd_metal_china_low", "snd_metal_china_mid", "snd_metal_china_high" ],
+        "Stone": [ "snd_metal_stone_low", "snd_metal_stone_mid", "snd_metal_stone_high" ]
+    },
+
+    "Wood": {
+        "Metal": [ "snd_wood_metal_low", "snd_wood_metal_mid", "snd_wood_metal_high" ],
+        "Wood": [ "snd_wood_wood_low", "snd_wood_wood_mid", "snd_wood_wood_high" ],
+        "Plastic": [ "snd_wood_plastic_low", "snd_wood_plastic_mid", "snd_wood_plastic_high" ],
+        "China": [ "snd_wood_china_low", "snd_wood_china_mid", "snd_wood_china_high" ],
+        "Stone": [ "snd_wood_stone_low", "snd_wood_stone_mid", "snd_wood_stone_high" ]
+    },
+
+    "Plastic": {
+        "Metal": [ "snd_plastic_metal_low", "snd_plastic_metal_mid", "snd_plastic_metal_high" ],
+        "Wood": [ "snd_plastic_wood_low", "snd_plastic_wood_mid", "snd_plastic_wood_high" ],
+        "Plastic": [ "snd_plastic_plastic_low", "snd_plastic_plastic_mid", "snd_plastic_plastic_high" ],
+        "China": [ "snd_plastic_china_low", "snd_plastic_china_mid", "snd_plastic_china_high" ],
+        "Stone": [ "snd_plastic_stone_low", "snd_plastic_stone_mid", "snd_plastic_stone_high" ]
+    },
+
+    "China": {
+        "Metal": [ "snd_china_metal_low", "snd_china_metal_mid", "snd_china_metal_high" ],
+        "Wood": [ "snd_china_wood_low", "snd_china_wood_mid", "snd_china_wood_high" ],
+        "Plastic": [ "snd_china_plastic_low", "snd_china_plastic_mid", "snd_china_plastic_high" ],
+        "China": [ "snd_china_china_low", "snd_china_china_mid", "snd_china_china_high" ],
+        "Stone": [ "snd_china_stone_low", "snd_china_stone_mid", "snd_china_stone_high" ]
+    },
+
+    "Stone": {
+        "Metal": [ "snd_stone_metal_low", "snd_stone_metal_mid", "snd_stone_metal_high" ],
+        "Wood": [ "snd_stone_wood_low", "snd_stone_wood_mid", "snd_stone_wood_high" ],
+        "Plastic": [ "snd_stone_plastic_low", "snd_stone_plastic_mid", "snd_stone_plastic_high" ],
+        "China": [ "snd_stone_china_low", "snd_stone_china_mid", "snd_stone_china_high" ],
+        "Stone": [ "snd_stone_stone_low", "snd_stone_stone_mid", "snd_stone_stone_high" ]
+    }
 }
