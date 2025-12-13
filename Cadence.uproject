@@ -56,6 +56,10 @@
 		{
 			"Name": "TextToSpeech",
 			"Enabled": true
+		},
+		{
+			"Name": "GameplayStateTree",
+			"Enabled": true
 		}
 	],
 	"TargetPlatforms": [
