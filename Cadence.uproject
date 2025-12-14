@@ -7,10 +7,7 @@
 		{
 			"Name": "Cadence",
 			"Type": "Runtime",
-			"LoadingPhase": "Default",
-			"AdditionalDependencies": [
-				"Engine"
-			]
+			"LoadingPhase": "Default"
 		}
 	],
 	"Plugins": [
@@ -58,10 +55,6 @@
 		},
 		{
 			"Name": "TextToSpeech",
-			"Enabled": true
-		},
-		{
-			"Name": "GameplayStateTree",
 			"Enabled": true
 		}
 	],
