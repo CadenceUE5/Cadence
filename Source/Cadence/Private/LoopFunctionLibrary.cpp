@@ -2,6 +2,8 @@
 
 #include "Cadence/Loop/LoopFunctionLibrary.h"
 
+#include "Cadence/K8_UtilityCore.h"
+
 #include "Cadence/Grabbable/GrabbableDataLibrary.h"
 
 #include "Math/UnrealMathUtility.h"
@@ -81,43 +83,51 @@ int32 ULoopFunctionLibrary::RoundTimeInLoopToNearestBeat(const FLoopInstance& Lo
     return FMath::Clamp(Beat, 0, Loop.Signature.TotalBeatsPerLoop - 1);
 }
 
-bool ULoopFunctionLibrary::AddItemToLoopAtBeat(FLoopInstance& Loop, int32 BeatInLoop,
-                                               const FLoopItem& Item)
+FLoopItemPayload ULoopFunctionLibrary::AddItemToLoopAtBeat(FLoopInstance& Loop, int32 BeatInLoop,
+                                                           const FLoopItem& Item)
 {
     if (!Loop.Data.Beats.IsValidIndex(BeatInLoop))
     {
-        return false;
+        return { .BeatInLoop = INDEX_NONE, .OrderInBeat = INDEX_NONE, .Item = {} };
     }
 
-    Loop.Data.Beats[BeatInLoop].Items.Add(Item);
-    Loop.History.Add(BeatInLoop);
+    TArray<FLoopItem>& Items = Loop.Data.Beats[BeatInLoop].Items;
 
-    return true;
+    const int32 OrderInBeat = Items.Num();
+    Items.Add(Item);
+
+    Loop.History.Add(FIntPoint(BeatInLoop, OrderInBeat));
+
+    return { .BeatInLoop = BeatInLoop, .OrderInBeat = OrderInBeat, .Item = Item };
 }
 
 FLoopItemPayload ULoopFunctionLibrary::RemoveLastAddedLoopItem(FLoopInstance& Loop)
 {
     if (Loop.History.Num() == 0)
     {
-        return { .BeatInLoop = INDEX_NONE, .Item = {} };
+        return { .BeatInLoop = INDEX_NONE, .OrderInBeat = INDEX_NONE, .Item = {} };
     }
 
-    const int32 BeatOfRemovedItem = Loop.History.Pop();
+    const FIntPoint Last = Loop.History.Pop();
+    const int32 BeatInLoop = Last.X;
+    const int32 OrderInBeat = Last.Y;
 
-    if (!Loop.Data.Beats.IsValidIndex(BeatOfRemovedItem))
+    if (!Loop.Data.Beats.IsValidIndex(BeatInLoop))
     {
-        return { .BeatInLoop = INDEX_NONE, .Item = {} };
+        return { .BeatInLoop = INDEX_NONE, .OrderInBeat = INDEX_NONE, .Item = {} };
     }
 
-    TArray<FLoopItem>& Items = Loop.Data.Beats[BeatOfRemovedItem].Items;
+    TArray<FLoopItem>& Items = Loop.Data.Beats[BeatInLoop].Items;
 
-    if (Items.Num() == 0)
+    if (OrderInBeat != Items.Num() - 1)
     {
-        return { .BeatInLoop = INDEX_NONE, .Item = {} };
+        K8_LOG(Warning, "Loop History does not follow LIFO invariant. Aborting...");
+        return { .BeatInLoop = INDEX_NONE, .OrderInBeat = INDEX_NONE, .Item = {} };
     }
 
-    FLoopItem RemovedItem = Items.Pop();
-    return { .BeatInLoop = BeatOfRemovedItem, .Item = RemovedItem };
+    const FLoopItem RemovedItem = Items.Pop();
+
+    return { .BeatInLoop = BeatInLoop, .OrderInBeat = OrderInBeat, .Item = RemovedItem };
 }
 
 void ULoopFunctionLibrary::ClearAllLoopItems(FLoopInstance& Loop)

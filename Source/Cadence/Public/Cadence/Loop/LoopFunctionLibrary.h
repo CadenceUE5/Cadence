@@ -28,7 +28,8 @@ public:
     static int32 RoundTimeInLoopToNearestBeat(const FLoopInstance& Loop, float TimeInLoop);
 
     UFUNCTION(BlueprintCallable)
-    static bool AddItemToLoopAtBeat(FLoopInstance& Loop, int32 BeatInLoop, const FLoopItem& Item);
+    static FLoopItemPayload AddItemToLoopAtBeat(FLoopInstance& Loop, int32 BeatInLoop,
+                                                const FLoopItem& Item);
 
     UFUNCTION(BlueprintCallable)
     static FLoopItemPayload RemoveLastAddedLoopItem(FLoopInstance& Loop);

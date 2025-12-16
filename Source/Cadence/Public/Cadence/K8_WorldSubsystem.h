@@ -86,7 +86,7 @@ public:
     bool UnmuteLoopTypePlayback(ELoopType type);
 
     UFUNCTION(BlueprintCallable)
-    int32 AddItemToUserLoop(const FLoopItem& Item);
+    FLoopItemPayload AddItemToUserLoop(const FLoopItem& Item);
 
     UFUNCTION(BlueprintCallable)
     FLoopItemPayload UndoLastItemInUserLoop();

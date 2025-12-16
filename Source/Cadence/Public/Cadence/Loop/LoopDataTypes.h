@@ -68,6 +68,9 @@ struct FLoopItemPayload
     int32 BeatInLoop;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    int32 OrderInBeat;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FLoopItem Item;
 };
 
@@ -119,7 +122,7 @@ struct FLoopInstance
     bool bIsMuted = false;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-    TArray<int32> History;
+    TArray<FIntPoint> History;  // X = BeatInLoop, Y = OrderInBeat
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
     FLoopData Data;

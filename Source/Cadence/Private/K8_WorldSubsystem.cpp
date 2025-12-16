@@ -145,29 +145,29 @@ bool UK8_WorldSubsystem::UnmuteLoopTypePlayback(ELoopType type)
     return false;
 }
 
-int32 UK8_WorldSubsystem::AddItemToUserLoop(const FLoopItem& Item)
+FLoopItemPayload UK8_WorldSubsystem::AddItemToUserLoop(const FLoopItem& Item)
 {
     FLoopInstance& UserLoop = mLoopInstances.FindChecked(ELoopType::USER);
 
     if (UserLoop.bIsMuted)
     {
         K8_LOG(Warning, "Attempting to modify user loop while it is muted. Aborting...");
-        return INDEX_NONE;
+        return { .BeatInLoop = INDEX_NONE, .OrderInBeat = INDEX_NONE, .Item = {} };
     }
 
     const int32 TargetBeat = (mCurrentBeatInLoop + 1) % GetGlobalLoopSignature().TotalBeatsPerLoop;
 
-    const bool Success = ULoopFunctionLibrary::AddItemToLoopAtBeat(UserLoop, TargetBeat, Item);
+    const FLoopItemPayload Payload = ULoopFunctionLibrary::AddItemToLoopAtBeat(UserLoop, TargetBeat,
+                                                                               Item);
 
-    if (Success)
+    if (Payload.BeatInLoop > INDEX_NONE && Payload.OrderInBeat > INDEX_NONE)
     {
         bLoopDataCacheDirty = true;
 
-        const FLoopItemPayload Payload = { .BeatInLoop = TargetBeat, .Item = Item };
         OnUserLoopAdd.Broadcast(Payload);
     }
 
-    return TargetBeat;
+    return Payload;
 }
 
 FLoopItemPayload UK8_WorldSubsystem::UndoLastItemInUserLoop()
