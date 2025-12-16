@@ -149,6 +149,12 @@ int32 UK8_WorldSubsystem::AddItemToUserLoop(const FLoopItem& Item)
 {
     FLoopInstance& UserLoop = mLoopInstances.FindChecked(ELoopType::USER);
 
+    if (UserLoop.bIsMuted)
+    {
+        K8_LOG(Warning, "Attempting to modify user loop while it is muted. Aborting...");
+        return INDEX_NONE;
+    }
+
     const int32 TargetBeat = (mCurrentBeatInLoop + 1) % GetGlobalLoopSignature().TotalBeatsPerLoop;
 
     const bool Success = ULoopFunctionLibrary::AddItemToLoopAtBeat(UserLoop, TargetBeat, Item);
@@ -168,6 +174,12 @@ FLoopItemPayload UK8_WorldSubsystem::UndoLastItemInUserLoop()
 {
     FLoopInstance& UserLoop = mLoopInstances.FindChecked(ELoopType::USER);
 
+    if (UserLoop.bIsMuted)
+    {
+        K8_LOG(Warning, "Attempting to modify user loop while it is muted. Aborting...");
+        return { .BeatInLoop = INDEX_NONE, .Item = {} };
+    }
+
     const FLoopItemPayload Payload = ULoopFunctionLibrary::RemoveLastAddedLoopItem(UserLoop);
 
     if (Payload.BeatInLoop != INDEX_NONE)
@@ -182,6 +194,12 @@ FLoopItemPayload UK8_WorldSubsystem::UndoLastItemInUserLoop()
 void UK8_WorldSubsystem::ClearUserLoop()
 {
     FLoopInstance& UserLoop = mLoopInstances.FindChecked(ELoopType::USER);
+
+    if (UserLoop.bIsMuted)
+    {
+        K8_LOG(Warning, "Attempting to modify user loop while it is muted. Aborting...");
+        return;
+    }
 
     ULoopFunctionLibrary::ClearAllLoopItems(UserLoop);
 

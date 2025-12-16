@@ -140,6 +140,7 @@ float ULoopFunctionLibrary::ComputeLoopSimilarityScore(const FLoopInstance& A, c
     }
 
     float AccumulatedScore = 0.f;
+    int32 ScoredBeats = 0;
 
     for (int32 Beat = 0; Beat < TotalBeats; ++Beat)
     {
@@ -148,7 +149,6 @@ float ULoopFunctionLibrary::ComputeLoopSimilarityScore(const FLoopInstance& A, c
 
         if (ItemsA.Num() == 0 && ItemsB.Num() == 0)
         {
-            AccumulatedScore += 1.f;
             continue;
         }
 
@@ -185,9 +185,10 @@ float ULoopFunctionLibrary::ComputeLoopSimilarityScore(const FLoopInstance& A, c
                                                           : 0.f;
 
         AccumulatedScore += ScoreForCurrentBeat;
+        ScoredBeats++;
     }
 
-    return AccumulatedScore / float(TotalBeats);
+    return (ScoredBeats > 0) ? AccumulatedScore / float(ScoredBeats) : 0.f;
 }
 
 bool ULoopFunctionLibrary::FindContextForLoopItems(FLoopData& Data,
@@ -236,4 +237,20 @@ bool ULoopFunctionLibrary::FindContextForLoopItems(FLoopData& Data,
     }
 
     return bAnyFound;
+}
+
+TMap<ELoopType, UWidgetListObject*> ULoopFunctionLibrary::MakeLoopTypeToWidgetListObjectMap(
+    UObject* Outer)
+{
+    check(Outer);
+
+    TMap<ELoopType, UWidgetListObject*> Result;
+
+    Result.Add(ELoopType::USER, NewObject<UWidgetListObject>(Outer));
+
+    Result.Add(ELoopType::GOAL, NewObject<UWidgetListObject>(Outer));
+
+    Result.Add(ELoopType::TEMPLATE, NewObject<UWidgetListObject>(Outer));
+
+    return Result;
 }

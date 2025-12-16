@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 
+#include "Blueprint/UserWidget.h"
+
 #include "LoopDataTypes.generated.h"
 
 UENUM(BlueprintType)
@@ -121,4 +123,14 @@ struct FLoopInstance
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
     FLoopData Data;
+};
+
+UCLASS(BlueprintType)
+class UWidgetListObject : public UObject
+{
+    GENERATED_BODY()
+
+public:
+    UPROPERTY(BlueprintReadWrite)
+    TSet<UUserWidget*> Widgets;
 };

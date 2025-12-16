@@ -54,4 +54,7 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor)
     static bool FindContextForLoopItems(FLoopData& Data,
                                         UDataTable const* GrabbableMaterialDataTable);
+
+    UFUNCTION(BlueprintCallable)
+    static TMap<ELoopType, UWidgetListObject*> MakeLoopTypeToWidgetListObjectMap(UObject* Outer);
 };
