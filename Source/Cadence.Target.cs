@@ -9,7 +9,8 @@ public class CadenceTarget : TargetRules
 	{
 		Type = TargetType.Game;
 		DefaultBuildSettings = BuildSettingsVersion.V5;
+        IncludeOrderVersion = EngineIncludeOrderVersion.Unreal5_6;
 
-		ExtraModuleNames.AddRange( new string[] { "Cadence" } );
+        ExtraModuleNames.AddRange( new string[] { "Cadence" } );
 	}
 }
