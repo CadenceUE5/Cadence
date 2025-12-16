@@ -4,6 +4,8 @@
 
 /* Non-Unreal Ecosystem C++ Macros and Utitities */
 
+DECLARE_LOG_CATEGORY_EXTERN(LogCadence, Log, All);
+
 #if !UE_BUILD_SHIPPING
 
 #ifdef __INTELLISENSE__
@@ -15,8 +17,6 @@
     if (GEngine)                                                                                   \
     GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow,                                      \
                                      FString::Printf(TEXT(MSG), ##__VA_ARGS__))
-
-DECLARE_LOG_CATEGORY_EXTERN(LogCadence, Log, All);
 
 #define K8_LOG(Verbosity, Message, ...)                                                            \
     UE_LOG(LogCadence, Verbosity, TEXT("[%s] " Message), TEXT(__FUNCTION__), ##__VA_ARGS__)

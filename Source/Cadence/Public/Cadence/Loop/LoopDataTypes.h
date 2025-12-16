@@ -45,7 +45,7 @@ struct FLoopItem
     ELoopItemPlaybackMode PlaybackMode = ELoopItemPlaybackMode::SPATIAL;
 
     /* The row name of the GrabbableMaterialPair that generated this FLoopItem */
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FName InstigatorName;
 
     /**
