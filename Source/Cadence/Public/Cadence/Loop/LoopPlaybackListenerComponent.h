@@ -21,7 +21,6 @@ public:
     UPROPERTY(BlueprintReadOnly, Category = "Cadence")
     FLoopRootSignature CachedRootSignature;
 
-    // Forwarded delegates (Blueprint-friendly)
     UPROPERTY(BlueprintAssignable)
     FOnPlaybackStarted OnPlaybackStarted;
 
@@ -36,6 +35,9 @@ public:
 
     UPROPERTY(BlueprintAssignable)
     FOnUnmuteLoopTypePlaybackSuccess OnUnmuteLoopTypePlaybackSuccess;
+
+    UPROPERTY(BlueprintAssignable)
+    FOnUserGoalLoopPlaybackToggled OnUserGoalLoopPlaybackToggled;
 
     UPROPERTY(BlueprintAssignable)
     FOnUserLoopAdd OnUserLoopAdd;
@@ -68,6 +70,9 @@ private:
 
     UFUNCTION()
     void HandleUnmuteLoopTypePlaybackSuccess(ELoopType UnmutedLoopType);
+
+    UFUNCTION()
+    void HandleUserGoalLoopPlaybackToggled(ELoopType NewLoopType, ELoopType OldLoopType);
 
     UFUNCTION()
     void HandleUserLoopAdd(FLoopItemPayload Payload);

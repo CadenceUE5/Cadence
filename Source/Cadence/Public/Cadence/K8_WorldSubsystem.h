@@ -19,7 +19,8 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMuteLoopTypePlaybackSuccess, ELoo
                                             MutedLoopType);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUnmuteLoopTypePlaybackSuccess, ELoopType,
                                             UnmutedLoopType);
-DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUserGoalLoopPlaybackToggled, ELoopType, NewLoopType);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_TwoParams(FOnUserGoalLoopPlaybackToggled, ELoopType, NewLoopType,
+                                             ELoopType, OldLoopType);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUserLoopAdd, FLoopItemPayload, Payload);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUserLoopUndo, FLoopItemPayload, Payload);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnUserLoopCleared);
@@ -104,6 +105,9 @@ public:
 
     UFUNCTION(BlueprintPure)
     float GetGlobalBeatDuration() const;
+
+    UFUNCTION(BlueprintPure)
+    bool IsMuted(ELoopType type) const;
 
     UFUNCTION(BlueprintPure)
     const FLoopRootSignature& GetGlobalLoopSignature() const;

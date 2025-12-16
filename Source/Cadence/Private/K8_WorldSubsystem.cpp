@@ -192,22 +192,21 @@ void UK8_WorldSubsystem::ClearUserLoop()
 
 bool UK8_WorldSubsystem::ToggleUserGoalLoopPlayback()
 {
-    bool Success = false;
     if (mLoopInstances.FindChecked(ELoopType::USER).bIsMuted)
     {
-        Success &= MuteLoopTypePlayback(ELoopType::GOAL);
-        Success &= UnmuteLoopTypePlayback(ELoopType::USER);
-        OnUserGoalLoopPlaybackToggled.Broadcast(ELoopType::USER);
+        const bool bSuccess = MuteLoopTypePlayback(ELoopType::GOAL)
+                              && UnmuteLoopTypePlayback(ELoopType::USER);
+        OnUserGoalLoopPlaybackToggled.Broadcast(ELoopType::USER, ELoopType::GOAL);
+        return bSuccess;
     }
     else
     {
-        Success &= MuteLoopTypePlayback(ELoopType::USER);
-        Success &= UnmuteLoopTypePlayback(ELoopType::GOAL);
+        const bool bSuccess = MuteLoopTypePlayback(ELoopType::USER)
+                              && UnmuteLoopTypePlayback(ELoopType::GOAL);
 
-        OnUserGoalLoopPlaybackToggled.Broadcast(ELoopType::GOAL);
+        OnUserGoalLoopPlaybackToggled.Broadcast(ELoopType::GOAL, ELoopType::USER);
+        return bSuccess;
     }
-
-    return Success;
 }
 
 float UK8_WorldSubsystem::ComputeUserToGoalSimilarityScore() const
@@ -230,6 +229,11 @@ float UK8_WorldSubsystem::GetGlobalLoopDuration() const
 float UK8_WorldSubsystem::GetGlobalBeatDuration() const
 {
     return mLoopInstances.FindChecked(ELoopType::TEMPLATE).Signature.BeatDuration;
+}
+
+bool UK8_WorldSubsystem::IsMuted(ELoopType type) const
+{
+    return mLoopInstances.FindChecked(type).bIsMuted;
 }
 
 const FLoopRootSignature& UK8_WorldSubsystem::GetGlobalLoopSignature() const

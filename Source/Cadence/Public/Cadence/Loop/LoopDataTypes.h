@@ -122,12 +122,3 @@ struct FLoopInstance
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
     FLoopData Data;
 };
-
-USTRUCT(BlueprintType)
-struct FLoopPlaybackActivityMap
-{
-    GENERATED_BODY()
-
-    UPROPERTY(BlueprintReadOnly)
-    TMap<ELoopType, bool> LoopTypeToIsMuted;
-};

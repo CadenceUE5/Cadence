@@ -37,6 +37,9 @@ void ULoopPlaybackListenerComponent::BeginPlay()
     CachedSubsystem->OnUnmuteLoopTypePlaybackSuccess
         .AddDynamic(this, &ULoopPlaybackListenerComponent::HandleUnmuteLoopTypePlaybackSuccess);
 
+    CachedSubsystem->OnUserGoalLoopPlaybackToggled
+        .AddDynamic(this, &ULoopPlaybackListenerComponent::HandleUserGoalLoopPlaybackToggled);
+
     CachedSubsystem->OnUserLoopAdd.AddDynamic(this,
                                               &ULoopPlaybackListenerComponent::HandleUserLoopAdd);
 
@@ -59,6 +62,7 @@ void ULoopPlaybackListenerComponent::EndPlay(const EEndPlayReason::Type EndPlayR
         CachedSubsystem->OnLoopWrappedToStart.RemoveAll(this);
         CachedSubsystem->OnMuteLoopTypePlaybackSuccess.RemoveAll(this);
         CachedSubsystem->OnUnmuteLoopTypePlaybackSuccess.RemoveAll(this);
+        CachedSubsystem->OnUserGoalLoopPlaybackToggled.RemoveAll(this);
         CachedSubsystem->OnUserLoopAdd.RemoveAll(this);
         CachedSubsystem->OnUserLoopUndo.RemoveAll(this);
         CachedSubsystem->OnUserLoopCleared.RemoveAll(this);
@@ -91,6 +95,12 @@ void ULoopPlaybackListenerComponent::HandleMuteLoopTypePlaybackSuccess(ELoopType
 void ULoopPlaybackListenerComponent::HandleUnmuteLoopTypePlaybackSuccess(ELoopType UnmutedLoopType)
 {
     OnUnmuteLoopTypePlaybackSuccess.Broadcast(UnmutedLoopType);
+}
+
+void ULoopPlaybackListenerComponent::HandleUserGoalLoopPlaybackToggled(ELoopType NewLoopType,
+                                                                       ELoopType OldLoopType)
+{
+    OnUserGoalLoopPlaybackToggled.Broadcast(NewLoopType, OldLoopType);
 }
 
 void ULoopPlaybackListenerComponent::HandleUserLoopAdd(FLoopItemPayload Payload)
