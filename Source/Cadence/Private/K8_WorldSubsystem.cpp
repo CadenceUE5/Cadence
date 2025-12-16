@@ -190,6 +190,26 @@ void UK8_WorldSubsystem::ClearUserLoop()
     OnUserLoopCleared.Broadcast();
 }
 
+bool UK8_WorldSubsystem::ToggleUserGoalLoopPlayback()
+{
+    bool Success = false;
+    if (mLoopInstances.FindChecked(ELoopType::USER).bIsMuted)
+    {
+        Success &= MuteLoopTypePlayback(ELoopType::GOAL);
+        Success &= UnmuteLoopTypePlayback(ELoopType::USER);
+        OnUserGoalLoopPlaybackToggled.Broadcast(ELoopType::USER);
+    }
+    else
+    {
+        Success &= MuteLoopTypePlayback(ELoopType::USER);
+        Success &= UnmuteLoopTypePlayback(ELoopType::GOAL);
+
+        OnUserGoalLoopPlaybackToggled.Broadcast(ELoopType::GOAL);
+    }
+
+    return Success;
+}
+
 float UK8_WorldSubsystem::ComputeUserToGoalSimilarityScore() const
 {
     const FLoopInstance& User = mLoopInstances.FindChecked(ELoopType::USER);

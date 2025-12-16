@@ -48,7 +48,7 @@ public:
      * @param B
      * @return
      */
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintPure)
     static float ComputeLoopSimilarityScore(const FLoopInstance& A, const FLoopData& B);
 
     UFUNCTION(BlueprintCallable, CallInEditor)

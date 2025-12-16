@@ -19,6 +19,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnMuteLoopTypePlaybackSuccess, ELoo
                                             MutedLoopType);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUnmuteLoopTypePlaybackSuccess, ELoopType,
                                             UnmutedLoopType);
+DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUserGoalLoopPlaybackToggled, ELoopType, NewLoopType);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUserLoopAdd, FLoopItemPayload, Payload);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUserLoopUndo, FLoopItemPayload, Payload);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnUserLoopCleared);
@@ -92,6 +93,9 @@ public:
     UFUNCTION(BlueprintCallable)
     void ClearUserLoop();
 
+    UFUNCTION(BlueprintCallable)
+    bool ToggleUserGoalLoopPlayback();
+
     UFUNCTION(BlueprintPure)
     float ComputeUserToGoalSimilarityScore() const;
 
@@ -143,6 +147,9 @@ public:
 
     UPROPERTY(BlueprintAssignable)
     FOnUnmuteLoopTypePlaybackSuccess OnUnmuteLoopTypePlaybackSuccess;
+
+    UPROPERTY(BlueprintAssignable)
+    FOnUserGoalLoopPlaybackToggled OnUserGoalLoopPlaybackToggled;
 
     UPROPERTY(BlueprintAssignable)
     FOnUserLoopAdd OnUserLoopAdd;
