@@ -1,14 +1,14 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-#include "Cadence/Grabbable/GrabbableDataLibrary.h"
+#include "Cadence/Grabbable/GrabbableFunctionLibrary.h"
 
-FName UGrabbableDataLibrary::MakeGrabbableMaterialPairRowName(EGrabbableMaterial A,
-                                                              EGrabbableMaterial B)
+FName UGrabbableFunctionLibrary::MakeGrabbableMaterialPairRowName(EGrabbableMaterialType A,
+                                                                  EGrabbableMaterialType B)
 {
     const uint8 Min = FMath::Min((uint8)A, (uint8)B);
     const uint8 Max = FMath::Max((uint8)A, (uint8)B);
 
-    const UEnum* Enum = StaticEnum<EGrabbableMaterial>();
+    const UEnum* Enum = StaticEnum<EGrabbableMaterialType>();
     check(Enum);
 
     const FString NameA = Enum->GetNameStringByValue(Min).ToLower();
@@ -17,7 +17,7 @@ FName UGrabbableDataLibrary::MakeGrabbableMaterialPairRowName(EGrabbableMaterial
     return FName(*FString::Printf(TEXT("%s_%s"), *NameA, *NameB));
 }
 
-bool UGrabbableDataLibrary::IsGuidGreaterThan(const FGuid A, const FGuid B)
+bool UGrabbableFunctionLibrary::IsGuidGreaterThan(const FGuid A, const FGuid B)
 {
     return A < B;
 }

@@ -12,6 +12,14 @@
 				"Engine",
 				"Blutility"
 			]
+		},
+		{
+			"Name": "CadenceEditor",
+			"Type": "Editor",
+			"LoadingPhase": "PostEngineInit",
+			"AdditionalDependencies": [
+				"UnrealEd"
+			]
 		}
 	],
 	"Plugins": [

@@ -4,7 +4,7 @@
 
 #include "Cadence/K8_UtilityCore.h"
 
-#include "Cadence/Grabbable/GrabbableDataLibrary.h"
+#include "Cadence/Grabbable/GrabbableFunctionLibrary.h"
 
 #include "Math/UnrealMathUtility.h"
 

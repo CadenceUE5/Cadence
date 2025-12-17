@@ -15,7 +15,7 @@ class CADENCE_API ULoopPrimaryDataAssetBase : public UPrimaryDataAsset
     GENERATED_BODY()
 
 public:
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
     FLoopData LoopData;
 };
 
@@ -36,7 +36,7 @@ class CADENCE_API UGoalLoopPrimaryDataAsset : public ULoopPrimaryDataAssetBase
     GENERATED_BODY()
 
 public:
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
     UDataTable const* mGrabbableMaterialDataTable;
 
     UFUNCTION(BlueprintCallable)

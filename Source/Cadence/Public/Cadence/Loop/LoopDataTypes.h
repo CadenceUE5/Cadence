@@ -6,6 +6,8 @@
 
 #include "Blueprint/UserWidget.h"
 
+#include "Cadence/K8_UtilityCore.h"
+
 #include "LoopDataTypes.generated.h"
 
 UENUM(BlueprintType)
