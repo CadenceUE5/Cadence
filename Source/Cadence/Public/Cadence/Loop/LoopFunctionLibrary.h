@@ -53,7 +53,7 @@ public:
     static float ComputeLoopSimilarityScore(const FLoopInstance& A, const FLoopData& B);
 
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "Cadence|Statics|Loop")
-    static bool FindContextForLoopItems(FLoopData& Data,
+    static bool FindContextForLoopItems(FLoopData& Data, float VolumeMultiplier,
                                         UDataTable const* GrabbableMaterialDataTable);
 
     UFUNCTION(BlueprintCallable, Category = "Cadence|Statics|UI")

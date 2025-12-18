@@ -201,7 +201,7 @@ float ULoopFunctionLibrary::ComputeLoopSimilarityScore(const FLoopInstance& A, c
     return (ScoredBeats > 0) ? AccumulatedScore / float(ScoredBeats) : 0.f;
 }
 
-bool ULoopFunctionLibrary::FindContextForLoopItems(FLoopData& Data,
+bool ULoopFunctionLibrary::FindContextForLoopItems(FLoopData& Data, float VolumeMultiplier,
                                                    UDataTable const* GrabbableMaterialDataTable)
 {
     if (!GrabbableMaterialDataTable)
@@ -239,6 +239,7 @@ bool ULoopFunctionLibrary::FindContextForLoopItems(FLoopData& Data,
                 {
                     Item.InstigatorName = Pair.Key;
                     Item.Color = Row->Color;
+                    Item.VolumeMultiplier = VolumeMultiplier;
                     bAnyFound = true;
                     break;
                 }

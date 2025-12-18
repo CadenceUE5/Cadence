@@ -45,9 +45,18 @@ public:
     float TemplateLoopVolumeMultiplier = 0.3f;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Gameplay Customization")
-    float GrabbableImpulseSensitivity = 300.f;
+    float GoalLoopVolumeMultiplier = 0.8f;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Gameplay Customization")
+    UPROPERTY(
+        EditAnywhere, BlueprintReadOnly, Category = "Gameplay Customization",
+        meta
+        = (ToolTip
+           = "Impulse magnitude from grabbable collision required to reach full volume. Lower values make added loop items louder; higher values make them quieter."))
+    float GrabbableHitImpulseVolumeNormalization = 1000.f;
+
+    UPROPERTY(
+        EditAnywhere, BlueprintReadOnly, Category = "Gameplay Customization",
+        meta = (ToolTip = "Minimum time (in seconds) between successive grabbable hit detections."))
     float GrabbableHitDetectionFrequency = 1.f;
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Gameplay Customization")

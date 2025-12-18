@@ -19,7 +19,8 @@ void UK8_WorldSubsystem::InitializeLoopInstances()
 
     const FLoopInstance GoalInstance
         = Settings->GoalLoopAsset->MakeGoalLoopInstance(TemplateInstance.Signature,
-                                                        Settings->GrabbableMaterialDataTable, true);
+                                                        Settings->GrabbableMaterialDataTable,
+                                                        Settings->GoalLoopVolumeMultiplier, true);
 
     mLoopInstances.Add(ELoopType::GOAL, GoalInstance);
 

@@ -71,11 +71,12 @@ FLoopInstance UTemplateLoopPrimaryDataAsset::MakeTemplateLoopInstance(int32 Beat
 
 FLoopInstance UGoalLoopPrimaryDataAsset::MakeGoalLoopInstance(
     const FLoopRootSignature Signature, UDataTable const* GrabbableMaterialDataTable,
-    bool IsMuted) const
+    float VolumeMultiplier, bool IsMuted) const
 {
     FLoopData DataCopy = LoopData;
 
-    ULoopFunctionLibrary::FindContextForLoopItems(DataCopy, GrabbableMaterialDataTable);
+    ULoopFunctionLibrary::FindContextForLoopItems(DataCopy, VolumeMultiplier,
+                                                  GrabbableMaterialDataTable);
 
     DataCopy.Beats.SetNum(Signature.TotalBeatsPerLoop);
 
@@ -83,7 +84,7 @@ FLoopInstance UGoalLoopPrimaryDataAsset::MakeGoalLoopInstance(
 }
 
 void UGoalLoopPrimaryDataAsset::FindColorForAssetLoopItems(
-    UDataTable const* GrabbableMaterialDataTable)
+    float VolumeMultiplier, UDataTable const* GrabbableMaterialDataTable)
 {
     UDataTable const* DataTablePtr = GrabbableMaterialDataTable;
 
@@ -92,5 +93,5 @@ void UGoalLoopPrimaryDataAsset::FindColorForAssetLoopItems(
         DataTablePtr = mGrabbableMaterialDataTable;
     }
 
-    ULoopFunctionLibrary::FindContextForLoopItems(LoopData, DataTablePtr);
+    ULoopFunctionLibrary::FindContextForLoopItems(LoopData, VolumeMultiplier, DataTablePtr);
 }

@@ -54,8 +54,9 @@ public:
     UFUNCTION(BlueprintCallable)
     FLoopInstance MakeGoalLoopInstance(const FLoopRootSignature Signature,
                                        UDataTable const* GrabbableMaterialDataTable,
-                                       bool IsMuted = true) const;
+                                       float VolumeMultiplier, bool IsMuted = true) const;
 
     UFUNCTION(BlueprintCallable, CallInEditor)
-    void FindColorForAssetLoopItems(UDataTable const* GrabbableMaterialDataTable = nullptr);
+    void FindColorForAssetLoopItems(float VolumeMultiplier,
+                                    UDataTable const* GrabbableMaterialDataTable = nullptr);
 };
