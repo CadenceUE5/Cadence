@@ -32,22 +32,28 @@ class CADENCE_API UK8WorldSubsystemSettings : public UDataAsset
     GENERATED_BODY()
 
 public:
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    int32 BeatsPerMinute = 120;
-
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    float TemplateLoopVolumeMultiplier = 0.3f;
-
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    TSubclassOf<ALoopPlaybackActor> PlaybackActorClass;
-
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "World Aesthetics")
     UTemplateLoopPrimaryDataAsset* TemplateLoopAsset;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "World Aesthetics")
     UGoalLoopPrimaryDataAsset* GoalLoopAsset;
 
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Gameplay Customization")
+    int32 BeatsPerMinute = 180;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Gameplay Customization")
+    float TemplateLoopVolumeMultiplier = 0.3f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Gameplay Customization")
+    float GrabbableImpulseSensitivity = 300.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Gameplay Customization")
+    float GrabbableHitDetectionFrequency = 1.f;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Default Object Classes")
+    TSubclassOf<ALoopPlaybackActor> PlaybackActorClass;
+
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Default Object Classes")
     UDataTable* GrabbableMaterialDataTable;
 };
 
@@ -67,7 +73,7 @@ class CADENCE_API UK8_WorldSubsystem : public UWorldSubsystem
     GENERATED_BODY()
 
 public:
-    UPROPERTY(EditAnywhere)
+    UPROPERTY(EditAnywhere, BlueprintReadOnly)
     UK8WorldSubsystemSettings* Settings;
 
     virtual void OnWorldBeginPlay(UWorld& World) override;
@@ -97,8 +103,8 @@ public:
     UFUNCTION(BlueprintCallable)
     bool ToggleUserGoalLoopPlayback();
 
-    UFUNCTION(BlueprintPure)
-    float ComputeUserToGoalSimilarityScore() const;
+    UFUNCTION(BlueprintCallable)
+    float ComputeUserToGoalSimilarityScore();
 
     UFUNCTION(BlueprintPure)
     float GetGlobalLoopDuration() const;

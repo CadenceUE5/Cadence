@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Engine/DataAsset.h"
 
+#include "Cadence/K8_UtilityCore.h"
 #include "Cadence/Loop/LoopDataTypes.h"
 
 #include "LoopPrimaryDataAsset.generated.h"
@@ -15,8 +16,19 @@ class CADENCE_API ULoopPrimaryDataAssetBase : public UPrimaryDataAsset
     GENERATED_BODY()
 
 public:
-    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FLoopData LoopData;
+
+    ULoopPrimaryDataAssetBase();
+
+protected:
+    UFUNCTION(BlueprintNativeEvent)
+    void UpdateDataDisplayStrings();
+
+#if WITH_EDITOR
+    void PostLoad() override;
+    void PostEditChangeProperty(FPropertyChangedEvent& Event) override;
+#endif
 };
 
 UCLASS()
@@ -36,7 +48,7 @@ class CADENCE_API UGoalLoopPrimaryDataAsset : public ULoopPrimaryDataAssetBase
     GENERATED_BODY()
 
 public:
-    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+    UPROPERTY(Transient, BlueprintReadWrite)
     UDataTable const* mGrabbableMaterialDataTable;
 
     UFUNCTION(BlueprintCallable)

@@ -13,7 +13,7 @@
 /**
  *
  */
-UCLASS()
+UCLASS(Abstract)
 class CADENCE_API UGrabbablePrimaryDataAsset : public UPrimaryDataAsset
 {
     GENERATED_BODY()

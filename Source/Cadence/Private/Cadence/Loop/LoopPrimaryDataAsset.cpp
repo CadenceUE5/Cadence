@@ -4,6 +4,40 @@
 
 #include "Cadence/Loop/LoopFunctionLibrary.h"
 
+ULoopPrimaryDataAssetBase::ULoopPrimaryDataAssetBase()
+{
+    LoopData.Beats.SetNum(12);
+}
+
+K8_GENERATED_FUNCTION_SOURCE(ULoopPrimaryDataAssetBase::UpdateDataDisplayStrings, void, ())
+{
+    for (int32 i = 0; i < LoopData.Beats.Num(); ++i)
+    {
+        FLoopBeat& Beat = LoopData.Beats[i];
+        Beat.UpdateDisplayString(i);
+
+        for (FLoopItem& Item : Beat.Items)
+        {
+            Item.UpdateDisplayString();
+        }
+    }
+}
+
+#if WITH_EDITOR
+void ULoopPrimaryDataAssetBase::PostLoad()
+{
+    UPrimaryDataAsset::PostLoad();
+
+    UpdateDataDisplayStrings();
+}
+void ULoopPrimaryDataAssetBase::PostEditChangeProperty(FPropertyChangedEvent& Event)
+{
+    UPrimaryDataAsset::PostEditChangeProperty(Event);
+
+    UpdateDataDisplayStrings();
+}
+#endif
+
 FLoopInstance UTemplateLoopPrimaryDataAsset::MakeTemplateLoopInstance(int32 BeatsPerMinute,
                                                                       float VolumeMultiplier,
                                                                       bool IsMuted) const
@@ -17,6 +51,7 @@ FLoopInstance UTemplateLoopPrimaryDataAsset::MakeTemplateLoopInstance(int32 Beat
 
     ULoopFunctionLibrary::NormalizeLoopData(DataCopy, VolumeMultiplier);
 
+    // get beat duration in seconds by dividing BPM by 60, i.e. seconds in a beat.
     const float BeatDuration = 60.f / static_cast<float>(BeatsPerMinute);
 
     const float LoopDuration = ULoopFunctionLibrary::ComputeLoopDuration(DataCopy, BeatDuration);

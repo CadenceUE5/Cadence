@@ -9,7 +9,7 @@
 
 #include "GrabbableDataTypes.generated.h"
 
-UENUM(BlueprintType, Category = "Cadence | Grabbable")
+UENUM(BlueprintType, Category = "Cadence|Grabbable")
 enum class EGrabbableMaterialType : uint8
 {
     Metal UMETA(DisplayName = "Metal"),
@@ -20,7 +20,7 @@ enum class EGrabbableMaterialType : uint8
     MAX UMETA(Hidden)
 };
 
-USTRUCT(BlueprintType, Category = "Cadence | Grabbable")
+USTRUCT(BlueprintType, Category = "Cadence|Grabbable")
 struct FGrabbableMaterialPair : public FTableRowBase
 {
     GENERATED_BODY()

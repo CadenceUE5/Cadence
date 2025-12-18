@@ -19,15 +19,15 @@ class CADENCE_API UGrabbableFunctionLibrary : public UBlueprintFunctionLibrary
     GENERATED_BODY()
 
 public:
-    UFUNCTION(BlueprintPure, Category = "Cadence | Statics | Grabbable")
+    UFUNCTION(BlueprintPure, Category = "Cadence|Statics|Grabbable")
     static FName MakeGrabbableMaterialPairRowName(EGrabbableMaterialType A,
                                                   EGrabbableMaterialType B);
 
-    UFUNCTION(BlueprintPure, Category = "Cadence | Statics | Misc")
+    UFUNCTION(BlueprintPure, Category = "Cadence|Statics|Misc")
     static bool IsGuidGreaterThan(const FGuid A, const FGuid B);
 
     template<typename TEnum>
-    UFUNCTION(BlueprintPure, Category = "Cadence | Statics | Misc")
+    UFUNCTION(BlueprintPure, Category = "Cadence|Statics|Misc")
     static FORCEINLINE FString GetEnumDisplayName(TEnum Value)
     {
         static_assert(TIsEnum<TEnum>::Value, "GetEnumDisplayName requires an enum type");

@@ -10,7 +10,7 @@
 
 #include "LoopDataTypes.generated.h"
 
-UENUM(BlueprintType)
+UENUM(BlueprintType, Category = "Cadence|Loop")
 enum class ELoopType : uint8
 {
     USER UMETA(DisplayName = "User"),
@@ -19,17 +19,20 @@ enum class ELoopType : uint8
     _MAX UMETA(Hidden)
 };
 
-UENUM(BlueprintType)
+UENUM(BlueprintType, Category = "Cadence|Loop")
 enum class ELoopItemPlaybackMode : uint8
 {
     FLAT,
     SPATIAL
 };
 
-USTRUCT(BlueprintType)
+USTRUCT(BlueprintType, Category = "Cadence|Loop")
 struct FLoopItem
 {
     GENERATED_BODY()
+
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+    FString DisplayString;  // for pure QOL purposes
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     USoundBase* Sound = nullptr;
@@ -59,9 +62,14 @@ struct FLoopItem
     {
         return InstigatorName.LexicalLess(Other.InstigatorName);
     }
+
+    void UpdateDisplayString()
+    {
+        DisplayString = Sound ? Sound->GetName() : TEXT("<UNSET>");
+    }
 };
 
-USTRUCT(BlueprintType)
+USTRUCT(BlueprintType, Category = "Cadence|Loop")
 struct FLoopItemPayload
 {
     GENERATED_BODY()
@@ -76,21 +84,30 @@ struct FLoopItemPayload
     FLoopItem Item;
 };
 
-USTRUCT(BlueprintType)
+USTRUCT(BlueprintType, Category = "Cadence|Loop")
 struct FLoopBeat
 {
     GENERATED_BODY()
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
+    FString DisplayString;  // for pure QOL purposes
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite,
+              meta = (TitleProperty = "DisplayString", ShowOnlyInnerProperties))
     TArray<FLoopItem> Items;
+
+    void UpdateDisplayString(int32 BeatIndex)
+    {
+        DisplayString = FString::Printf(TEXT("Beat %d (%d items)"), BeatIndex, Items.Num());
+    }
 };
 
-USTRUCT(BlueprintType)
+USTRUCT(BlueprintType, Category = "Cadence|Loop")
 struct FLoopRootSignature
 {
     GENERATED_BODY()
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+    UPROPERTY(VisibleAnywhere, BlueprintReadWrite)
     int32 BeatsPerMinute = 120;
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
@@ -103,16 +120,17 @@ struct FLoopRootSignature
     int32 TotalBeatsPerLoop = 0;
 };
 
-USTRUCT(BlueprintType)
+USTRUCT(BlueprintType, Category = "Cadence|Loop")
 struct FLoopData
 {
     GENERATED_BODY()
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    UPROPERTY(EditAnywhere, BlueprintReadWrite,
+              meta = (TitleProperty = "DisplayString", ShowOnlyInnerProperties))
     TArray<FLoopBeat> Beats;
 };
 
-USTRUCT(BlueprintType)
+USTRUCT(BlueprintType, Category = "Cadence|Loop")
 struct FLoopInstance
 {
     GENERATED_BODY()
@@ -123,19 +141,19 @@ struct FLoopInstance
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
     bool bIsMuted = false;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (ShowOnlyInnerProperties))
     TArray<FIntPoint> History;  // X = BeatInLoop, Y = OrderInBeat
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
     FLoopData Data;
 };
 
-UCLASS(BlueprintType)
+UCLASS(BlueprintType, Category = "Cadence|UI")
 class UWidgetListObject : public UObject
 {
     GENERATED_BODY()
 
 public:
-    UPROPERTY(BlueprintReadWrite)
+    UPROPERTY(BlueprintReadWrite, meta = (ShowOnlyInnerProperties))
     TSet<UUserWidget*> Widgets;
 };

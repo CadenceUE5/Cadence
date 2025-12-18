@@ -28,6 +28,13 @@ DECLARE_LOG_CATEGORY_EXTERN(LogCadence, Log, All);
 
 #endif
 
+#if defined(__INTELLISENSE__)
+#define K8_GENERATED_FUNCTION_SOURCE(FuncName, ReturnType, Args) ReturnType FuncName Args
+#else
+#define K8_GENERATED_FUNCTION_SOURCE(FuncName, ReturnType, Args)                                   \
+    ReturnType FuncName##_Implementation Args
+#endif
+
 namespace K8::Utility
 {
 // Unused for now

@@ -227,7 +227,7 @@ bool UK8_WorldSubsystem::ToggleUserGoalLoopPlayback()
     }
 }
 
-float UK8_WorldSubsystem::ComputeUserToGoalSimilarityScore() const
+float UK8_WorldSubsystem::ComputeUserToGoalSimilarityScore()
 {
     const FLoopInstance& User = mLoopInstances.FindChecked(ELoopType::USER);
     const FLoopInstance& Goal = mLoopInstances.FindChecked(ELoopType::GOAL);

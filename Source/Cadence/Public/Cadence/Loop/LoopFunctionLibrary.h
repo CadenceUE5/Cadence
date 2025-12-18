@@ -15,26 +15,26 @@ class CADENCE_API ULoopFunctionLibrary : public UBlueprintFunctionLibrary
     GENERATED_BODY()
 
 public:
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, Category = "Cadence|Statics|Loop")
     static void InitializeEmptyLoopToTotalBeats(FLoopInstance& Loop);
 
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, Category = "Cadence|Statics|Loop")
     static void NormalizeLoopData(FLoopData& Data, float VolumeMultiplier);
 
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, Category = "Cadence|Statics|Loop")
     static float ComputeLoopDuration(const FLoopData& Data, float BeatDuration);
 
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, Category = "Cadence|Statics|Loop")
     static int32 RoundTimeInLoopToNearestBeat(const FLoopInstance& Loop, float TimeInLoop);
 
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, Category = "Cadence|Statics|Loop")
     static FLoopItemPayload AddItemToLoopAtBeat(FLoopInstance& Loop, int32 BeatInLoop,
                                                 const FLoopItem& Item);
 
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, Category = "Cadence|Statics|Loop")
     static FLoopItemPayload RemoveLastAddedLoopItem(FLoopInstance& Loop);
 
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, Category = "Cadence|Statics|Loop")
     static void ClearAllLoopItems(FLoopInstance& Loop);
 
     /**
@@ -49,13 +49,13 @@ public:
      * @param B
      * @return
      */
-    UFUNCTION(BlueprintPure)
+    UFUNCTION(BlueprintPure, Category = "Cadence|Statics|Loop")
     static float ComputeLoopSimilarityScore(const FLoopInstance& A, const FLoopData& B);
 
-    UFUNCTION(BlueprintCallable, CallInEditor)
+    UFUNCTION(BlueprintCallable, CallInEditor, Category = "Cadence|Statics|Loop")
     static bool FindContextForLoopItems(FLoopData& Data,
                                         UDataTable const* GrabbableMaterialDataTable);
 
-    UFUNCTION(BlueprintCallable)
+    UFUNCTION(BlueprintCallable, Category = "Cadence|Statics|UI")
     static TMap<ELoopType, UWidgetListObject*> MakeLoopTypeToWidgetListObjectMap(UObject* Outer);
 };
