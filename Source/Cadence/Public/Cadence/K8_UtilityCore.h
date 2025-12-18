@@ -15,7 +15,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogCadence, Log, All);
 /* Print to screen is very exhausting */
 #define K8_SCREEN(MSG, ...)                                                                        \
     if (GEngine)                                                                                   \
-    GEngine->AddOnScreenDebugMessage(-1, 2.f, FColor::Yellow,                                      \
+    GEngine->AddOnScreenDebugMessage(-1, 3.f, FColor::Yellow,                                      \
                                      FString::Printf(TEXT(MSG), ##__VA_ARGS__))
 
 #define K8_LOG(Verbosity, Message, ...)                                                            \

@@ -27,7 +27,7 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnUserLoopCleared);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUserToGoalSimilarityScoreComputed, float, Score);
 
 UCLASS(BlueprintType)
-class CADENCE_API UK8WorldSubsystemSettings : public UDataAsset
+class CADENCE_API UK8_WorldSubsystemSettings : public UDataAsset
 {
     GENERATED_BODY()
 
@@ -50,6 +50,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Gameplay Customization")
     float GrabbableHitDetectionFrequency = 1.f;
 
+    UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Gameplay Customization")
+    float GrabbableOutlineLineWidth = 0.75f;
+
     UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Default Object Classes")
     TSubclassOf<ALoopPlaybackActor> PlaybackActorClass;
 
@@ -58,13 +61,13 @@ public:
 };
 
 UCLASS(Config = Game, DefaultConfig, meta = (DisplayName = "Cadence Settings"))
-class CADENCE_API UK8WorldSubsystemDeveloperSettings : public UDeveloperSettings
+class CADENCE_API UK8_WorldSubsystemDeveloperSettings : public UDeveloperSettings
 {
     GENERATED_BODY()
 
 public:
     UPROPERTY(EditAnywhere, Config)
-    TSoftObjectPtr<UK8WorldSubsystemSettings> DeveloperSettings;
+    TSoftObjectPtr<UK8_WorldSubsystemSettings> DeveloperSettings;
 };
 
 UCLASS(Config = Game)
@@ -74,7 +77,7 @@ class CADENCE_API UK8_WorldSubsystem : public UWorldSubsystem
 
 public:
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    UK8WorldSubsystemSettings* Settings;
+    UK8_WorldSubsystemSettings* Settings;
 
     virtual void OnWorldBeginPlay(UWorld& World) override;
     virtual void Deinitialize() override;

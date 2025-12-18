@@ -14,12 +14,11 @@ K8_GENERATED_FUNCTION_SOURCE(ULoopPrimaryDataAssetBase::UpdateDataDisplayStrings
     for (int32 i = 0; i < LoopData.Beats.Num(); ++i)
     {
         FLoopBeat& Beat = LoopData.Beats[i];
-        Beat.UpdateDisplayString(i);
-
         for (FLoopItem& Item : Beat.Items)
         {
             Item.UpdateDisplayString();
         }
+        Beat.UpdateDisplayString(i);
     }
 }
 

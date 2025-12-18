@@ -58,7 +58,7 @@ void UK8_WorldSubsystem::Deinitialize()
 
 void UK8_WorldSubsystem::LoadSettingsSynchronous()
 {
-    Settings = GetDefault<UK8WorldSubsystemDeveloperSettings>()->DeveloperSettings.LoadSynchronous();
+    Settings = GetDefault<UK8_WorldSubsystemDeveloperSettings>()->DeveloperSettings.LoadSynchronous();
 }
 
 void UK8_WorldSubsystem::SpawnPlaybackActor(UWorld& World)

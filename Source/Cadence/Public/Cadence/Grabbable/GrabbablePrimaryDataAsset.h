@@ -13,7 +13,7 @@
 /**
  *
  */
-UCLASS(Abstract)
+UCLASS()
 class CADENCE_API UGrabbablePrimaryDataAsset : public UPrimaryDataAsset
 {
     GENERATED_BODY()
@@ -24,4 +24,8 @@ public:
 
     UPROPERTY(EditAnywhere, BlueprintReadOnly)
     EGrabbableMaterialType MaterialType = EGrabbableMaterialType::Metal;
+
+#if WITH_EDITOR
+    virtual void GetAssetRegistryTags(FAssetRegistryTagsContext Context) const override;
+#endif
 };

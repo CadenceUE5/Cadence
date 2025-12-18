@@ -9,7 +9,7 @@ ULoopPlaybackListenerComponent::ULoopPlaybackListenerComponent()
 
 void ULoopPlaybackListenerComponent::BeginPlay()
 {
-    Super::BeginPlay();
+    UActorComponent::BeginPlay();
 
     if (!GetWorld())
     {
@@ -69,7 +69,7 @@ void ULoopPlaybackListenerComponent::EndPlay(const EEndPlayReason::Type EndPlayR
         CachedSubsystem->OnUserToGoalSimilarityScoreComputed.RemoveAll(this);
     }
 
-    Super::EndPlay(EndPlayReason);
+    UActorComponent::EndPlay(EndPlayReason);
 }
 
 void ULoopPlaybackListenerComponent::HandlePlaybackStarted(FLoopRootSignature Signature)

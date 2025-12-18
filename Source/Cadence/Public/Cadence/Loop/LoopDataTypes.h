@@ -98,7 +98,21 @@ struct FLoopBeat
 
     void UpdateDisplayString(int32 BeatIndex)
     {
-        DisplayString = FString::Printf(TEXT("Beat %d (%d items)"), BeatIndex, Items.Num());
+        if (Items.IsEmpty())
+        {
+            DisplayString = "";
+            return;
+        }
+        TArray<FString> ItemNames;
+        ItemNames.Reserve(Items.Num());
+
+        for (const FLoopItem& Item : Items)
+        {
+            ItemNames.Add(Item.DisplayString);
+        }
+
+        DisplayString = FString::Printf(TEXT("Beat %d (%d items): %s"), BeatIndex, Items.Num(),
+                                        *FString::Join(ItemNames, TEXT(", ")));
     }
 };
 

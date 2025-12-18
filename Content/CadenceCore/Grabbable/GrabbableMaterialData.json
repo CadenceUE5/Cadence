@@ -1,111 +1,197 @@
 [
-    {
-        "Name": "metal_metal",
-        "MaterialA": "Metal",
-        "MaterialB": "Metal",
-        "Color": { "R": 160, "G": 160, "B": 160, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_metal_metal.SFX_metal_metal'"
-    },
-    {
-        "Name": "metal_wood",
-        "MaterialA": "Metal",
-        "MaterialB": "Wood",
-        "Color": { "R": 230, "G": 140, "B": 40, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_metal_wood.SFX_metal_wood'"
-    },
-    {
-        "Name": "metal_plastic",
-        "MaterialA": "Metal",
-        "MaterialB": "Plastic",
-        "Color": { "R": 70, "G": 120, "B": 230, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_metal_plastic.SFX_metal_plastic'"
-    },
-    {
-        "Name": "metal_china",
-        "MaterialA": "Metal",
-        "MaterialB": "China",
-        "Color": { "R": 200, "G": 70, "B": 180, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_metal_china.SFX_metal_china'"
-    },
-    {
-        "Name": "metal_stone",
-        "MaterialA": "Metal",
-        "MaterialB": "Stone",
-        "Color": { "R": 140, "G": 160, "B": 60, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_metal_stone.SFX_metal_stone'"
-    },
-
-    {
-        "Name": "wood_wood",
-        "MaterialA": "Wood",
-        "MaterialB": "Wood",
-        "Color": { "R": 170, "G": 110, "B": 60, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_wood_wood.SFX_wood_wood'"
-    },
-    {
-        "Name": "wood_plastic",
-        "MaterialA": "Wood",
-        "MaterialB": "Plastic",
-        "Color": { "R": 80, "G": 180, "B": 100, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_wood_plastic.SFX_wood_plastic'"
-    },
-    {
-        "Name": "wood_china",
-        "MaterialA": "Wood",
-        "MaterialB": "China",
-        "Color": { "R": 200, "G": 60, "B": 60, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_wood_china.SFX_wood_china'"
-    },
-    {
-        "Name": "wood_stone",
-        "MaterialA": "Wood",
-        "MaterialB": "Stone",
-        "Color": { "R": 150, "G": 190, "B": 60, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_wood_stone.SFX_wood_stone'"
-    },
-
-    {
-        "Name": "plastic_plastic",
-        "MaterialA": "Plastic",
-        "MaterialB": "Plastic",
-        "Color": { "R": 60, "G": 200, "B": 200, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_plastic_plastic.SFX_plastic_plastic'"
-    },
-    {
-        "Name": "plastic_china",
-        "MaterialA": "Plastic",
-        "MaterialB": "China",
-        "Color": { "R": 150, "G": 80, "B": 200, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_plastic_china.SFX_plastic_china'"
-    },
-    {
-        "Name": "plastic_stone",
-        "MaterialA": "Plastic",
-        "MaterialB": "Stone",
-        "Color": { "R": 60, "G": 160, "B": 160, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_plastic_stone.SFX_plastic_stone'"
-    },
-
-    {
-        "Name": "china_china",
-        "MaterialA": "China",
-        "MaterialB": "China",
-        "Color": { "R": 220, "G": 100, "B": 130, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_china_china.SFX_china_china'"
-    },
-    {
-        "Name": "china_stone",
-        "MaterialA": "China",
-        "MaterialB": "Stone",
-        "Color": { "R": 200, "G": 140, "B": 50, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_china_stone.SFX_china_stone'"
-    },
-
-    {
-        "Name": "stone_stone",
-        "MaterialA": "Stone",
-        "MaterialB": "Stone",
-        "Color": { "R": 90, "G": 90, "B": 90, "A": 255 },
-        "Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_stone_stone.SFX_stone_stone'"
-    }
+	{
+		"Name": "metal_metal",
+		"MaterialA": "Metal",
+		"MaterialB": "Metal",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_metal_metal.SFX_metal_metal'",
+		"Color":
+		{
+			"B": 128,
+			"G": 128,
+			"R": 128,
+			"A": 255
+		}
+	},
+	{
+		"Name": "metal_wood",
+		"MaterialA": "Metal",
+		"MaterialB": "Wood",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_metal_wood.SFX_metal_wood'",
+		"Color":
+		{
+			"B": 134,
+			"G": 167,
+			"R": 245,
+			"A": 255
+		}
+	},
+	{
+		"Name": "metal_plastic",
+		"MaterialA": "Metal",
+		"MaterialB": "Plastic",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_metal_plastic.SFX_metal_plastic'",
+		"Color":
+		{
+			"B": 75,
+			"G": 25,
+			"R": 230,
+			"A": 255
+		}
+	},
+	{
+		"Name": "metal_china",
+		"MaterialA": "Metal",
+		"MaterialB": "China",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_metal_china.SFX_metal_china'",
+		"Color":
+		{
+			"B": 25,
+			"G": 225,
+			"R": 255,
+			"A": 255
+		}
+	},
+	{
+		"Name": "metal_stone",
+		"MaterialA": "Metal",
+		"MaterialB": "Stone",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_metal_stone.SFX_metal_stone'",
+		"Color":
+		{
+			"B": 55,
+			"G": 233,
+			"R": 196,
+			"A": 255
+		}
+	},
+	{
+		"Name": "wood_wood",
+		"MaterialA": "Wood",
+		"MaterialB": "Wood",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_wood_wood.SFX_wood_wood'",
+		"Color":
+		{
+			"B": 40,
+			"G": 110,
+			"R": 170,
+			"A": 255
+		}
+	},
+	{
+		"Name": "wood_plastic",
+		"MaterialA": "Wood",
+		"MaterialB": "Plastic",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_wood_plastic.SFX_wood_plastic'",
+		"Color":
+		{
+			"B": 75,
+			"G": 180,
+			"R": 60,
+			"A": 255
+		}
+	},
+	{
+		"Name": "wood_china",
+		"MaterialA": "Wood",
+		"MaterialB": "China",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_wood_china.SFX_wood_china'",
+		"Color":
+		{
+			"B": 0,
+			"G": 128,
+			"R": 128,
+			"A": 255
+		}
+	},
+	{
+		"Name": "wood_stone",
+		"MaterialA": "Wood",
+		"MaterialB": "Stone",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_wood_stone.SFX_wood_stone'",
+		"Color":
+		{
+			"B": 130,
+			"G": 0,
+			"R": 75,
+			"A": 255
+		}
+	},
+	{
+		"Name": "plastic_plastic",
+		"MaterialA": "Plastic",
+		"MaterialB": "Plastic",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_plastic_plastic.SFX_plastic_plastic'",
+		"Color":
+		{
+			"B": 240,
+			"G": 240,
+			"R": 70,
+			"A": 255
+		}
+	},
+	{
+		"Name": "plastic_china",
+		"MaterialA": "Plastic",
+		"MaterialB": "China",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_plastic_china.SFX_plastic_china'",
+		"Color":
+		{
+			"B": 200,
+			"G": 130,
+			"R": 0,
+			"A": 255
+		}
+	},
+	{
+		"Name": "plastic_stone",
+		"MaterialA": "Plastic",
+		"MaterialB": "Stone",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_plastic_stone.SFX_plastic_stone'",
+		"Color":
+		{
+			"B": 255,
+			"G": 0,
+			"R": 0,
+			"A": 255
+		}
+	},
+	{
+		"Name": "china_china",
+		"MaterialA": "China",
+		"MaterialB": "China",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_china_china.SFX_china_china'",
+		"Color":
+		{
+			"B": 180,
+			"G": 105,
+			"R": 255,
+			"A": 255
+		}
+	},
+	{
+		"Name": "china_stone",
+		"MaterialA": "China",
+		"MaterialB": "Stone",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_china_stone.SFX_china_stone'",
+		"Color":
+		{
+			"B": 180,
+			"G": 30,
+			"R": 145,
+			"A": 255
+		}
+	},
+	{
+		"Name": "stone_stone",
+		"MaterialA": "Stone",
+		"MaterialB": "Stone",
+		"Sound": "/Script/Engine.SoundWave'/Game/AssetPacks/SFX/pixabay/SFX_stone_stone.SFX_stone_stone'",
+		"Color":
+		{
+			"B": 0,
+			"G": 0,
+			"R": 0,
+			"A": 255
+		}
+	}
 ]
