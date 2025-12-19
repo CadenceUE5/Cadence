@@ -11,7 +11,9 @@
 			"AdditionalDependencies": [
 				"Engine",
 				"Blutility",
-				"UMG"
+				"UMG",
+				"ModelViewViewModel",
+				"DeveloperSettings"
 			]
 		},
 		{

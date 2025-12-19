@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Logging/LogMacros.h"
 
 /* Non-Unreal Ecosystem C++ Macros and Utitities */
 
@@ -30,6 +31,7 @@ DECLARE_LOG_CATEGORY_EXTERN(LogCadence, Log, All);
 
 #if defined(__INTELLISENSE__)
 #define K8_GENERATED_FUNCTION_SOURCE(FuncName, ReturnType, Args) ReturnType FuncName Args
+
 #else
 #define K8_GENERATED_FUNCTION_SOURCE(FuncName, ReturnType, Args)                                   \
     ReturnType FuncName##_Implementation Args
@@ -37,5 +39,17 @@ DECLARE_LOG_CATEGORY_EXTERN(LogCadence, Log, All);
 
 namespace K8::Utility
 {
-// Unused for now
+
+CADENCE_API extern UObject* FindAssetByClass(UClass* AssetClass);
+
+template<typename T>
+static T* TryFindAsset()
+{
+    if (TIsDerivedFrom<T, UObject>::IsDerived)
+    {
+        return Cast<T>(FindAssetByClass(T::StaticClass()));
+    }
+
+    return nullptr;
 }
+}  // namespace K8::Utility

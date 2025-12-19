@@ -55,7 +55,4 @@ public:
     UFUNCTION(BlueprintCallable, CallInEditor, Category = "Cadence|Statics|Loop")
     static bool FindContextForLoopItems(FLoopData& Data, float VolumeMultiplier,
                                         UDataTable const* GrabbableMaterialDataTable);
-
-    UFUNCTION(BlueprintCallable, Category = "Cadence|Statics|UI")
-    static TMap<ELoopType, UWidgetListObject*> MakeLoopTypeToWidgetListObjectMap(UObject* Outer);
 };

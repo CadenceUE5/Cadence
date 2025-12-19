@@ -249,19 +249,3 @@ bool ULoopFunctionLibrary::FindContextForLoopItems(FLoopData& Data, float Volume
 
     return bAnyFound;
 }
-
-TMap<ELoopType, UWidgetListObject*> ULoopFunctionLibrary::MakeLoopTypeToWidgetListObjectMap(
-    UObject* Outer)
-{
-    check(Outer);
-
-    TMap<ELoopType, UWidgetListObject*> Result;
-
-    Result.Add(ELoopType::USER, NewObject<UWidgetListObject>(Outer));
-
-    Result.Add(ELoopType::GOAL, NewObject<UWidgetListObject>(Outer));
-
-    Result.Add(ELoopType::TEMPLATE, NewObject<UWidgetListObject>(Outer));
-
-    return Result;
-}

@@ -5,6 +5,7 @@
 #include "Cadence/K8_UtilityCore.h"
 
 #include "Cadence/Loop/LoopFunctionLibrary.h"
+#include "Cadence/K8_DeveloperSettings.h"
 
 void UK8_WorldSubsystem::InitializeLoopInstances()
 {
@@ -39,17 +40,23 @@ void UK8_WorldSubsystem::InitializeLoopInstances()
 
 void UK8_WorldSubsystem::OnWorldBeginPlay(UWorld& World)
 {
-    LoadSettingsSynchronous();
+    Settings = GetDefault<UK8_DeveloperSettings>()->WorldSubsystemSettings.LoadSynchronous();
+
+    Settings = nullptr;
+    if (!Settings)
+    {
+        K8_LOG(
+            Log,
+            "World settings could not be loaded from developer settings. Falling back to asset registry.");
+
+        Settings = K8::Utility::TryFindAsset<UK8_WorldSubsystemSettingsDataAsset>();
+    }
 
     if (!Settings)
     {
-        K8_LOG(Error, "Missing settings. Subsystem disabled.");
+        K8_LOG(Error, "World settings could not be located within project. Subsystem disabled.");
         return;
     }
-
-    InitializeLoopInstances();
-
-    SpawnPlaybackActor(World);
 }
 
 void UK8_WorldSubsystem::Deinitialize()
@@ -57,12 +64,17 @@ void UK8_WorldSubsystem::Deinitialize()
     KillPlayback();
 }
 
-void UK8_WorldSubsystem::LoadSettingsSynchronous()
+void UK8_WorldSubsystem::InitializeCadence()
 {
-    Settings = GetDefault<UK8_WorldSubsystemDeveloperSettings>()->DeveloperSettings.LoadSynchronous();
+    if (UWorld* World = GetWorld())
+    {
+        InitializeLoopInstances();
+
+        SpawnPlaybackActor(World);
+    }
 }
 
-void UK8_WorldSubsystem::SpawnPlaybackActor(UWorld& World)
+void UK8_WorldSubsystem::SpawnPlaybackActor(UWorld* World)
 {
     if (!mLoopPlaybackActor && Settings->PlaybackActorClass)
     {
@@ -70,8 +82,8 @@ void UK8_WorldSubsystem::SpawnPlaybackActor(UWorld& World)
         Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
         Params.ObjectFlags |= RF_Transient;
 
-        mLoopPlaybackActor = World.SpawnActor<ALoopPlaybackActor>(Settings->PlaybackActorClass,
-                                                                  FTransform::Identity, Params);
+        mLoopPlaybackActor = World->SpawnActor<ALoopPlaybackActor>(Settings->PlaybackActorClass,
+                                                                   FTransform::Identity, Params);
     }
 
     if (!mLoopPlaybackActor)

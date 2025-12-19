@@ -161,13 +161,3 @@ struct FLoopInstance
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
     FLoopData Data;
 };
-
-UCLASS(BlueprintType, Category = "Cadence|UI")
-class UWidgetListObject : public UObject
-{
-    GENERATED_BODY()
-
-public:
-    UPROPERTY(BlueprintReadWrite, meta = (ShowOnlyInnerProperties))
-    TSet<UUserWidget*> Widgets;
-};
