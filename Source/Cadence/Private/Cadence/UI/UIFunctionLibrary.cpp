@@ -19,3 +19,9 @@ TMap<ELoopType, UWidgetListObject*> UUIFunctionLibrary::MakeLoopTypeToWidgetList
 
     return Result;
 }
+
+FMVVMViewModelContext UUIFunctionLibrary::MakeViewModelContext(
+    TSubclassOf<UMVVMViewModelBase> ViewModelClass)
+{
+    return { .ContextClass = ViewModelClass, .ContextName = FName(GetNameSafe(ViewModelClass)) };
+}

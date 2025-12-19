@@ -5,7 +5,8 @@
 #include "CoreMinimal.h"
 #include "Engine/DeveloperSettings.h"
 
-#include "Cadence/K8_WorldSubsystem.h"
+#include "Cadence/Loop/LoopPrimaryDataAsset.h"
+#include "Cadence/Loop/LoopPlaybackActor.h"
 
 #include "K8_DeveloperSettings.generated.h"
 
@@ -20,6 +21,9 @@ class CADENCE_API UK8_DeveloperSettings : public UDeveloperSettings
 public:
     UPROPERTY(EditAnywhere, Config)
     TSoftObjectPtr<UK8_WorldSubsystemSettingsDataAsset> WorldSubsystemSettings;
+
+    UFUNCTION(BlueprintPure)
+    static UK8_WorldSubsystemSettingsDataAsset* GetDefaultWorldSubsystemSettings();
 };
 
 UCLASS(BlueprintType)

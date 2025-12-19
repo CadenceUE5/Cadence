@@ -4,6 +4,8 @@
 
 #include "CoreMinimal.h"
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include "Types/MVVMViewModelContext.h"
+#include <MVVMViewModelBase.h>
 
 #include "Cadence/UI/UIDataTypes.h"
 
@@ -17,6 +19,10 @@ class CADENCE_API UUIFunctionLibrary : public UBlueprintFunctionLibrary
 {
     GENERATED_BODY()
 
+public:
     UFUNCTION(BlueprintCallable, Category = "Cadence|Statics|UI")
     static TMap<ELoopType, UWidgetListObject*> MakeLoopTypeToWidgetListObjectMap(UObject* Outer);
+
+    UFUNCTION(BlueprintCallable, Category = "Cadence|Statics|UI")
+    static FMVVMViewModelContext MakeViewModelContext(TSubclassOf<UMVVMViewModelBase> ViewModelClass);
 };

@@ -70,17 +70,20 @@ FLoopInstance UTemplateLoopPrimaryDataAsset::MakeTemplateLoopInstance(int32 Beat
 }
 
 FLoopInstance UGoalLoopPrimaryDataAsset::MakeGoalLoopInstance(
-    const FLoopRootSignature Signature, UDataTable const* GrabbableMaterialDataTable,
+    const FLoopRootSignature& Signature, UDataTable const* GrabbableMaterialDataTable,
     float VolumeMultiplier, bool IsMuted) const
 {
-    FLoopData DataCopy = LoopData;
+    FLoopInstance LoopInstance;
+    LoopInstance.Signature = Signature;
+    LoopInstance.bIsMuted = IsMuted;
+    LoopInstance.Data = LoopData;
 
-    ULoopFunctionLibrary::FindContextForLoopItems(DataCopy, VolumeMultiplier,
+    ULoopFunctionLibrary::FindContextForLoopItems(LoopInstance.Data, VolumeMultiplier,
                                                   GrabbableMaterialDataTable);
 
-    DataCopy.Beats.SetNum(Signature.TotalBeatsPerLoop);
+    LoopInstance.Data.Beats.SetNum(Signature.TotalBeatsPerLoop);
 
-    return { .Signature = Signature, .bIsMuted = IsMuted, .History = {}, .Data = DataCopy };
+    return LoopInstance;
 }
 
 void UGoalLoopPrimaryDataAsset::FindColorForAssetLoopItems(

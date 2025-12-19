@@ -58,12 +58,12 @@ struct FLoopItem
      * @param Other
      * @return
      */
-    bool operator<(const FLoopItem& Other) const
+    FORCEINLINE bool operator<(const FLoopItem& Other) const
     {
         return InstigatorName.LexicalLess(Other.InstigatorName);
     }
 
-    void UpdateDisplayString()
+    FORCEINLINE void UpdateDisplayString()
     {
         DisplayString = Sound ? Sound->GetName() : TEXT("<UNSET>");
     }
@@ -96,7 +96,7 @@ struct FLoopBeat
               meta = (TitleProperty = "DisplayString", ShowOnlyInnerProperties))
     TArray<FLoopItem> Items;
 
-    void UpdateDisplayString(int32 BeatIndex)
+    FORCEINLINE void UpdateDisplayString(int32 BeatIndex)
     {
         if (Items.IsEmpty())
         {

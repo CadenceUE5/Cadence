@@ -52,7 +52,7 @@ public:
     UDataTable const* mGrabbableMaterialDataTable;
 
     UFUNCTION(BlueprintCallable)
-    FLoopInstance MakeGoalLoopInstance(const FLoopRootSignature Signature,
+    FLoopInstance MakeGoalLoopInstance(const FLoopRootSignature& Signature,
                                        UDataTable const* GrabbableMaterialDataTable,
                                        float VolumeMultiplier, bool IsMuted = true) const;
 

@@ -4,11 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Subsystems/WorldSubsystem.h"
-#include "Engine/DeveloperSettings.h"
 
 #include "Cadence/Loop/LoopDataTypes.h"
-#include "Cadence/Loop/LoopPrimaryDataAsset.h"
 #include "Cadence/Loop/LoopPlaybackActor.h"
+#include "Cadence/K8_DeveloperSettings.h"
 
 #include "K8_WorldSubsystem.generated.h"
 
@@ -27,25 +26,20 @@ DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUserLoopUndo, FLoopItemPayload, P
 DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnUserLoopCleared);
 DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FOnUserToGoalSimilarityScoreComputed, float, Score);
 
-class UK8_WorldSubsystemSettingsDataAsset;
-
 UCLASS()
 class CADENCE_API UK8_WorldSubsystem : public UWorldSubsystem
 {
     GENERATED_BODY()
 
 public:
-    UPROPERTY(EditAnywhere, BlueprintReadOnly)
-    UK8_WorldSubsystemSettingsDataAsset* Settings;
-
     virtual void OnWorldBeginPlay(UWorld& World) override;
     virtual void Deinitialize() override;
 
     UFUNCTION(BlueprintCallable)
-    void InitializeCadence();
+    bool InitializeCadence(UK8_WorldSubsystemSettingsDataAsset const* DesiredSettings);
 
     UFUNCTION(BlueprintCallable)
-    void StartPlayback();
+    bool StartPlayback();
 
     UFUNCTION(BlueprintCallable)
     void KillPlayback();
@@ -90,6 +84,8 @@ public:
     const FLoopInstance& GetLoopInstance(ELoopType type) const;
 
 private:
+    UK8_WorldSubsystemSettingsDataAsset const* Settings = nullptr;
+
     TMap<ELoopType, FLoopInstance> mLoopInstances;
 
     ALoopPlaybackActor* mLoopPlaybackActor = nullptr;
@@ -101,8 +97,8 @@ private:
 
     FTimerHandle mBeatTimerHandle;
 
-    void InitializeLoopInstances();
-    void SpawnPlaybackActor(UWorld* World);
+    bool InitializeLoopInstances();
+    bool SpawnPlaybackActor(UWorld* World);
 
     void HandleBeat();
     void RebuildLoopDataCache();

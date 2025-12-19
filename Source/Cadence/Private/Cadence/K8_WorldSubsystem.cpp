@@ -5,104 +5,48 @@
 #include "Cadence/K8_UtilityCore.h"
 
 #include "Cadence/Loop/LoopFunctionLibrary.h"
-#include "Cadence/K8_DeveloperSettings.h"
 
-void UK8_WorldSubsystem::InitializeLoopInstances()
-{
-    check(Settings->TemplateLoopAsset);
-    check(Settings->GoalLoopAsset);
-    check(Settings->GrabbableMaterialDataTable);
-
-    const FLoopInstance TemplateInstance = Settings->TemplateLoopAsset->MakeTemplateLoopInstance(
-        Settings->BeatsPerMinute, Settings->TemplateLoopVolumeMultiplier, false);
-
-    mLoopInstances.Add(ELoopType::TEMPLATE, TemplateInstance);
-
-    const FLoopInstance GoalInstance
-        = Settings->GoalLoopAsset->MakeGoalLoopInstance(TemplateInstance.Signature,
-                                                        Settings->GrabbableMaterialDataTable,
-                                                        Settings->GoalLoopVolumeMultiplier, true);
-
-    mLoopInstances.Add(ELoopType::GOAL, GoalInstance);
-
-    {
-        FLoopInstance UserInstance = {
-            .Signature = TemplateInstance.Signature, .bIsMuted = false, .History = {}, .Data = {}
-        };
-
-        ULoopFunctionLibrary::InitializeEmptyLoopToTotalBeats(UserInstance);
-
-        mLoopInstances.Add(ELoopType::USER, UserInstance);
-    }
-
-    mCurrentBeatInLoop = 0;
-}
-
-void UK8_WorldSubsystem::OnWorldBeginPlay(UWorld& World)
-{
-    Settings = GetDefault<UK8_DeveloperSettings>()->WorldSubsystemSettings.LoadSynchronous();
-
-    Settings = nullptr;
-    if (!Settings)
-    {
-        K8_LOG(
-            Log,
-            "World settings could not be loaded from developer settings. Falling back to asset registry.");
-
-        Settings = K8::Utility::TryFindAsset<UK8_WorldSubsystemSettingsDataAsset>();
-    }
-
-    if (!Settings)
-    {
-        K8_LOG(Error, "World settings could not be located within project. Subsystem disabled.");
-        return;
-    }
-}
+void UK8_WorldSubsystem::OnWorldBeginPlay(UWorld& World) {}
 
 void UK8_WorldSubsystem::Deinitialize()
 {
     KillPlayback();
 }
 
-void UK8_WorldSubsystem::InitializeCadence()
+bool UK8_WorldSubsystem::InitializeCadence(UK8_WorldSubsystemSettingsDataAsset const* DesiredSettings)
 {
-    if (UWorld* World = GetWorld())
+    K8_LOG(Error, "Given world settings not valid. Aborting...");
+    if (!DesiredSettings)
     {
-        InitializeLoopInstances();
-
-        SpawnPlaybackActor(World);
+        K8_LOG(Error, "Given world settings not valid. Aborting...");
+        return false;
     }
+
+    this->Settings = DesiredSettings;
+
+    UWorld* World = GetWorld();
+
+    if (!World)
+    {
+        K8_LOG(Error, "Attempting to initialize Cadence without a valid World. Aborting...")
+        return false;
+    }
+
+    return InitializeLoopInstances() && SpawnPlaybackActor(World);
 }
 
-void UK8_WorldSubsystem::SpawnPlaybackActor(UWorld* World)
-{
-    if (!mLoopPlaybackActor && Settings->PlaybackActorClass)
-    {
-        FActorSpawnParameters Params;
-        Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
-        Params.ObjectFlags |= RF_Transient;
-
-        mLoopPlaybackActor = World->SpawnActor<ALoopPlaybackActor>(Settings->PlaybackActorClass,
-                                                                   FTransform::Identity, Params);
-    }
-
-    if (!mLoopPlaybackActor)
-    {
-        K8_LOG(Error, "Failed to spawn LoopPlaybackActor. Audio will not play.");
-    }
-}
-
-void UK8_WorldSubsystem::StartPlayback()
+bool UK8_WorldSubsystem::StartPlayback()
 {
     if (!Settings)
     {
-        K8_LOG(Error, "Missing settings. Subsystem disabled.");
-        return;
+        K8_LOG(Error, "Missing settings. Cadence must be initialized first. Aborting...");
+        return false;
     }
 
     if (GetWorld()->GetTimerManager().IsTimerActive(mBeatTimerHandle))
     {
-        return;
+        K8_LOG(Warning, "Loop playback already started. Invalid call.");
+        return false;
     }
 
     mCurrentBeatInLoop = 0;
@@ -113,17 +57,29 @@ void UK8_WorldSubsystem::StartPlayback()
     bLoopDataCacheDirty = true;
 
     OnPlaybackStarted.Broadcast(GetGlobalLoopSignature());
+
+    K8_LOG(Log, "Loop playback started successfully.");
+
+    return true;
 }
 
 void UK8_WorldSubsystem::KillPlayback()
 {
-    auto& TM = GetWorld()->GetTimerManager();
+    auto& Manager = GetWorld()->GetTimerManager();
 
-    TM.ClearTimer(mBeatTimerHandle);
+    Manager.ClearTimer(mBeatTimerHandle);
 
     mCurrentBeatInLoop = 0;
 
     bLoopDataCacheDirty = true;
+
+    if (mLoopPlaybackActor)
+    {
+        mLoopPlaybackActor->Destroy();
+    }
+    Settings = nullptr;
+
+    mLoopInstances.Empty();
 }
 
 bool UK8_WorldSubsystem::MuteLoopTypePlayback(ELoopType type)
@@ -290,6 +246,77 @@ const FLoopInstance& UK8_WorldSubsystem::GetLoopInstance(ELoopType type) const
         case ELoopType::GOAL: return mLoopInstances.FindChecked(ELoopType::GOAL);
         default: return mLoopInstances.FindChecked(ELoopType::TEMPLATE);
     }
+}
+
+bool UK8_WorldSubsystem::InitializeLoopInstances()
+{
+    if (!Settings->TemplateLoopAsset || !Settings->GoalLoopAsset
+        || !Settings->GrabbableMaterialDataTable)
+    {
+        K8_LOG(
+            Error,
+            "TemplateLoopAsset, GoalLoopAsset, and GrabbableMaterialDataTable must be set properly in settings. Aborting...");
+        return false;
+    }
+
+    mLoopInstances.Reset();
+
+    mLoopInstances.Add(ELoopType::TEMPLATE,
+                       Settings->TemplateLoopAsset
+                           ->MakeTemplateLoopInstance(Settings->BeatsPerMinute,
+                                                      Settings->TemplateLoopVolumeMultiplier,
+                                                      false));
+
+    const FLoopRootSignature& TemplateLoopSignature = GetGlobalLoopSignature();
+
+    mLoopInstances.Add(ELoopType::GOAL,
+                       Settings->GoalLoopAsset
+                           ->MakeGoalLoopInstance(TemplateLoopSignature,
+                                                  Settings->GrabbableMaterialDataTable,
+                                                  Settings->GoalLoopVolumeMultiplier, true));
+
+    {
+        FLoopInstance UserInstance = {
+            .Signature = TemplateLoopSignature, .bIsMuted = false, .History = {}, .Data = {}
+        };
+
+        ULoopFunctionLibrary::InitializeEmptyLoopToTotalBeats(UserInstance);
+
+        mLoopInstances.Add(ELoopType::USER, UserInstance);
+    }
+
+    mCurrentBeatInLoop = 0;
+
+    K8_LOG(Log, "Loop instances successfully spawned.");
+    return true;
+}
+
+bool UK8_WorldSubsystem::SpawnPlaybackActor(UWorld* World)
+{
+    if (!Settings->PlaybackActorClass)
+    {
+        K8_LOG(Error, "PlaybackActorClass must be set properly in settings. Aborting...");
+        return false;
+    }
+
+    if (!mLoopPlaybackActor)
+    {
+        FActorSpawnParameters Params;
+        Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+        Params.ObjectFlags |= RF_Transient;
+
+        mLoopPlaybackActor = World->SpawnActor<ALoopPlaybackActor>(Settings->PlaybackActorClass,
+                                                                   FTransform::Identity, Params);
+
+        if (!mLoopPlaybackActor)
+        {
+            K8_LOG(Error, "Failed to spawn LoopPlaybackActor. Audio will not play.");
+            return false;
+        }
+    }
+
+    K8_LOG(Log, "Playback actor successfully spawned.");
+    return true;
 }
 
 void UK8_WorldSubsystem::HandleBeat()
