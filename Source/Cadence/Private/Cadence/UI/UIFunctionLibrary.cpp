@@ -24,7 +24,5 @@ TMap<ELoopType, UWidgetListObject*> UUIFunctionLibrary::MakeLoopTypeToWidgetList
 FMVVMViewModelContext UUIFunctionLibrary::MakeViewModelContext(
     TSubclassOf<UMVVMViewModelBase> ViewModelClass)
 {
-    K8_LOG(Warning, "Made context: %s", *GetNameSafe(ViewModelClass));
-
     return { .ContextClass = ViewModelClass, .ContextName = FName(GetNameSafe(ViewModelClass)) };
 }
