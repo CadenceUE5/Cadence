@@ -13,7 +13,11 @@ void UK8_GameInstanceBase::Init()
 
     bSubsystemsIntialized = true;
 
-    CurrentWorldSettings = UK8_DeveloperSettings::GetDefaultWorldSubsystemSettings();
+    const UK8_WorldSubsystemSettingsDataAsset* DefaultSettings
+        = UK8_DeveloperSettings::GetDefaultWorldSubsystemSettings();
+
+    CurrentWorldSettings = DuplicateObject<UK8_WorldSubsystemSettingsDataAsset>(DefaultSettings,
+                                                                                this);
 
     PostSubsystemInit();
 }

@@ -20,7 +20,6 @@ class IK8_ViewModelInterface
     GENERATED_BODY()
 
 public:
-    UFUNCTION(BlueprintCallable)
     virtual bool Initialize(UK8_WorldSubsystemSettingsDataAsset* Settings) = 0;
 };
 

@@ -2,6 +2,7 @@
 
 #include "Cadence/UI/UIFunctionLibrary.h"
 
+#include "Cadence/K8_UtilityCore.h"
 #include "Cadence/Loop/LoopDataTypes.h"
 
 TMap<ELoopType, UWidgetListObject*> UUIFunctionLibrary::MakeLoopTypeToWidgetListObjectMap(
@@ -23,5 +24,7 @@ TMap<ELoopType, UWidgetListObject*> UUIFunctionLibrary::MakeLoopTypeToWidgetList
 FMVVMViewModelContext UUIFunctionLibrary::MakeViewModelContext(
     TSubclassOf<UMVVMViewModelBase> ViewModelClass)
 {
+    K8_LOG(Warning, "Made context: %s", *GetNameSafe(ViewModelClass));
+
     return { .ContextClass = ViewModelClass, .ContextName = FName(GetNameSafe(ViewModelClass)) };
 }

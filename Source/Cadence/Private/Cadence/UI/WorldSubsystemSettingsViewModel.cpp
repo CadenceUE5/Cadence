@@ -21,6 +21,8 @@ bool UVM_GameplayCustomization::Initialize(UK8_WorldSubsystemSettingsDataAsset* 
     Success &= UE_MVVM_SET_PROPERTY_VALUE(GrabbableOutlineLineWidth,
                                           Settings->GrabbableOutlineLineWidth);
 
+    K8_LOG(Warning, "Initialized: %i, BeatsPerMinute: %f", Success, BeatsPerMinute);
+
     if (!Success)
     {
         K8_LOG(Error, "Unable to set property values.");
@@ -33,16 +35,19 @@ bool UVM_GameplayCustomization::Initialize(UK8_WorldSubsystemSettingsDataAsset* 
 
 float UVM_GameplayCustomization::GetBeatsPerMinute() const
 {
+    K8_LOG(Warning, "Trying to GET: %f", BeatsPerMinute);
     return BeatsPerMinute;
 }
 
 void UVM_GameplayCustomization::SetBeatsPerMinute(const float& NewValue)
 {
+    K8_LOG(Warning, "Trying to set: %f", NewValue);
     if (CurrentSettings)
     {
         if (UE_MVVM_SET_PROPERTY_VALUE(BeatsPerMinute, NewValue))
         {
             CurrentSettings->BeatsPerMinute = NewValue;
+            K8_LOG(Warning, "Successfully set: %f", NewValue);
         }
     }
 }
