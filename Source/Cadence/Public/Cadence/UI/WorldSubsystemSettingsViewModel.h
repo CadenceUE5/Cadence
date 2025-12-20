@@ -6,7 +6,6 @@
 #include "MVVMViewModelBase.h"
 
 #include "Cadence/K8_DeveloperSettings.h"
-#include "Cadence/UI/ViewModelMacros.h"
 
 #include "WorldSubsystemSettingsViewModel.generated.h"
 
@@ -26,45 +25,68 @@ public:
 };
 
 UCLASS()
-class CADENCE_API UVM_TemplateLoopAsset : public UMVVMViewModelBase, public IK8_ViewModelInterface
+class CADENCE_API UVM_GameplayCustomization : public UMVVMViewModelBase,
+                                              public IK8_ViewModelInterface
 {
     GENERATED_BODY()
 
 public:
     virtual bool Initialize(UK8_WorldSubsystemSettingsDataAsset* Settings) override;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-    bool bInitialized = false;
+    UFUNCTION(BlueprintPure)
+    float GetBeatsPerMinute() const;
+
+    UFUNCTION(BlueprintCallable)
+    void SetBeatsPerMinute(const float& NewValue);
 
     UFUNCTION(BlueprintPure)
-    UTemplateLoopPrimaryDataAsset* GetTemplateLoopAsset() const;
+    float GetTemplateLoopVolumeMultiplier() const;
+
+    UFUNCTION(BlueprintCallable)
+    void SetTemplateLoopVolumeMultiplier(const float& NewValue);
 
     UFUNCTION(BlueprintPure)
-    void SetTemplateLoopAsset(UTemplateLoopPrimaryDataAsset*& NewValue);
+    float GetGoalLoopVolumeMultiplier() const;
+
+    UFUNCTION(BlueprintCallable)
+    void SetGoalLoopVolumeMultiplier(const float& NewValue);
+
+    UFUNCTION(BlueprintPure)
+    float GetGrabbableHitImpulseVolumeNormalization() const;
+
+    UFUNCTION(BlueprintCallable)
+    void SetGrabbableHitImpulseVolumeNormalization(const float& NewValue);
+
+    UFUNCTION(BlueprintPure)
+    float GetGrabbableHitDetectionFrequency() const;
+
+    UFUNCTION(BlueprintCallable)
+    void SetGrabbableHitDetectionFrequency(const float& NewValue);
+
+    UFUNCTION(BlueprintPure)
+    float GetGrabbableOutlineLineWidth() const;
+
+    UFUNCTION(BlueprintCallable)
+    void SetGrabbableOutlineLineWidth(const float& NewValue);
 
 private:
-    UPROPERTY(BlueprintReadOnly, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
-    UTemplateLoopPrimaryDataAsset* TemplateLoopAsset;
-};
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
+    float BeatsPerMinute = -1.f;
 
-UCLASS()
-class CADENCE_API UVM_BeatsPerMinute : public UMVVMViewModelBase, public IK8_ViewModelInterface
-{
-    GENERATED_BODY()
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
+    float TemplateLoopVolumeMultiplier = -1.f;
 
-public:
-    virtual bool Initialize(UK8_WorldSubsystemSettingsDataAsset* Settings) override;
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
+    float GoalLoopVolumeMultiplier = -1.f;
 
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
-    bool bInitialized = false;
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
+    float GrabbableHitImpulseVolumeNormalization = -1.f;
 
-    UFUNCTION(BlueprintPure)
-    int32 GetBeatsPerMinute() const;
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
+    float GrabbableHitDetectionFrequency = -1.f;
 
-    UFUNCTION(BlueprintPure)
-    void SetBeatsPerMinute(const int32& NewBPM);
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
+    float GrabbableOutlineLineWidth = -1.f;
 
-private:
-    UPROPERTY(BlueprintReadOnly, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
-    int32 BeatsPerMinute = INDEX_NONE;
+    UK8_WorldSubsystemSettingsDataAsset* CurrentSettings;
 };

@@ -5,92 +5,124 @@
 #include "Cadence/K8_GameInstanceBase.h"
 #include "Cadence/K8_UtilityCore.h"
 
-bool UVM_TemplateLoopAsset::Initialize(UK8_WorldSubsystemSettingsDataAsset* Settings)
+bool UVM_GameplayCustomization::Initialize(UK8_WorldSubsystemSettingsDataAsset* Settings)
 {
-    if (!Settings)
-    {
-        K8_LOG(Error, "Initialization failed, invalid settings.");
-        return false;
-    }
-    if (UE_MVVM_SET_PROPERTY_VALUE(TemplateLoopAsset, Settings->TemplateLoopAsset))
-    {
-        K8_LOG(Error, "Unable to set property value.");
-        return false;
-    };
+    bool Success = true;
+    Success &= UE_MVVM_SET_PROPERTY_VALUE(BeatsPerMinute,
+                                          static_cast<float>(Settings->BeatsPerMinute));
+    Success &= UE_MVVM_SET_PROPERTY_VALUE(TemplateLoopVolumeMultiplier,
+                                          Settings->TemplateLoopVolumeMultiplier);
+    Success &= UE_MVVM_SET_PROPERTY_VALUE(GoalLoopVolumeMultiplier,
+                                          Settings->GoalLoopVolumeMultiplier);
+    Success &= UE_MVVM_SET_PROPERTY_VALUE(GrabbableHitImpulseVolumeNormalization,
+                                          Settings->GrabbableHitImpulseVolumeNormalization);
+    Success &= UE_MVVM_SET_PROPERTY_VALUE(GrabbableHitDetectionFrequency,
+                                          Settings->GrabbableHitDetectionFrequency);
+    Success &= UE_MVVM_SET_PROPERTY_VALUE(GrabbableOutlineLineWidth,
+                                          Settings->GrabbableOutlineLineWidth);
 
-    bInitialized = true;
-    return true;
+    if (!Success)
+    {
+        K8_LOG(Error, "Unable to set property values.");
+        return Success;
+    }
+
+    CurrentSettings = Settings;
+    return Success;
 }
 
-UTemplateLoopPrimaryDataAsset* UVM_TemplateLoopAsset::GetTemplateLoopAsset() const
+float UVM_GameplayCustomization::GetBeatsPerMinute() const
 {
-    if (!bInitialized)
-    {
-        K8_LOG(Error, "Getter called without initialization");
-        return nullptr;
-    }
-    return TemplateLoopAsset;
+    return BeatsPerMinute;
 }
 
-void UVM_TemplateLoopAsset::SetTemplateLoopAsset(UTemplateLoopPrimaryDataAsset*& NewValue)
+void UVM_GameplayCustomization::SetBeatsPerMinute(const float& NewValue)
 {
-    if (!bInitialized)
+    if (CurrentSettings)
     {
-        K8_LOG(Error, "Setter called without initialization");
-        return;
-    }
-    if (UK8_WorldSubsystemSettingsDataAsset* Settings
-        = UK8_GameInstanceBase::GetCurrentWorldSettingsStatic(this))
-    {
-        if (UE_MVVM_SET_PROPERTY_VALUE(TemplateLoopAsset, NewValue))
+        if (UE_MVVM_SET_PROPERTY_VALUE(BeatsPerMinute, NewValue))
         {
-            Settings->TemplateLoopAsset = NewValue;
+            CurrentSettings->BeatsPerMinute = NewValue;
         }
     }
 }
 
-bool UVM_BeatsPerMinute::Initialize(UK8_WorldSubsystemSettingsDataAsset* Settings)
+float UVM_GameplayCustomization::GetTemplateLoopVolumeMultiplier() const
 {
-    if (!Settings)
-    {
-        K8_LOG(Error, "Initialization failed, invalid settings.");
-        return false;
-    }
-    if (!UE_MVVM_SET_PROPERTY_VALUE(BeatsPerMinute, Settings->BeatsPerMinute))
-    {
-        K8_LOG(Error, "Unable to set property value.");
-        return false;
-    };
-
-    bInitialized = true;
-    return true;
+    return TemplateLoopVolumeMultiplier;
 }
 
-int32 UVM_BeatsPerMinute::GetBeatsPerMinute() const
+void UVM_GameplayCustomization::SetTemplateLoopVolumeMultiplier(const float& NewValue)
 {
-    if (!bInitialized)
+    if (CurrentSettings)
     {
-        K8_LOG(Error, "Getter called without initialization");
-        return INDEX_NONE;
-    }
-
-    return BeatsPerMinute;
-}
-
-void UVM_BeatsPerMinute::SetBeatsPerMinute(const int32& NewBPM)
-{
-    if (!bInitialized)
-    {
-        K8_LOG(Error, "Setter called without initialization");
-        return;
-    }
-
-    if (UK8_WorldSubsystemSettingsDataAsset* Settings
-        = UK8_GameInstanceBase::GetCurrentWorldSettingsStatic(this))
-    {
-        if (UE_MVVM_SET_PROPERTY_VALUE(BeatsPerMinute, NewBPM))
+        if (UE_MVVM_SET_PROPERTY_VALUE(TemplateLoopVolumeMultiplier, NewValue))
         {
-            Settings->BeatsPerMinute = NewBPM;
+            CurrentSettings->TemplateLoopVolumeMultiplier = NewValue;
+        }
+    }
+}
+
+float UVM_GameplayCustomization::GetGoalLoopVolumeMultiplier() const
+{
+    return GoalLoopVolumeMultiplier;
+}
+
+void UVM_GameplayCustomization::SetGoalLoopVolumeMultiplier(const float& NewValue)
+{
+    if (CurrentSettings)
+    {
+        if (UE_MVVM_SET_PROPERTY_VALUE(GoalLoopVolumeMultiplier, NewValue))
+        {
+            CurrentSettings->GoalLoopVolumeMultiplier = NewValue;
+        }
+    }
+}
+
+float UVM_GameplayCustomization::GetGrabbableHitImpulseVolumeNormalization() const
+{
+    return GrabbableHitImpulseVolumeNormalization;
+}
+
+void UVM_GameplayCustomization::SetGrabbableHitImpulseVolumeNormalization(const float& NewValue)
+{
+    if (CurrentSettings)
+    {
+        if (UE_MVVM_SET_PROPERTY_VALUE(GrabbableHitImpulseVolumeNormalization, NewValue))
+        {
+            CurrentSettings->GrabbableHitImpulseVolumeNormalization = NewValue;
+        }
+    }
+}
+
+float UVM_GameplayCustomization::GetGrabbableHitDetectionFrequency() const
+{
+    return GrabbableHitDetectionFrequency;
+}
+
+void UVM_GameplayCustomization::SetGrabbableHitDetectionFrequency(const float& NewValue)
+{
+    if (CurrentSettings)
+    {
+        if (UE_MVVM_SET_PROPERTY_VALUE(GrabbableHitDetectionFrequency, NewValue))
+        {
+            CurrentSettings->GrabbableHitDetectionFrequency = NewValue;
+        }
+    }
+}
+
+float UVM_GameplayCustomization::GetGrabbableOutlineLineWidth() const
+{
+    return GrabbableOutlineLineWidth;
+}
+
+void UVM_GameplayCustomization::SetGrabbableOutlineLineWidth(const float& NewValue)
+{
+    if (CurrentSettings)
+    {
+        if (UE_MVVM_SET_PROPERTY_VALUE(GrabbableOutlineLineWidth, NewValue))
+        {
+            CurrentSettings->GrabbableOutlineLineWidth = NewValue;
         }
     }
 }

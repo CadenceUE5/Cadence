@@ -65,11 +65,11 @@ bool UK8_GameInstanceBase::ConstructAllViewModels()
         return false;
     }
 
-    UVM_BeatsPerMinute* VM_BeatsPerMinuteInstance = NewObject<UVM_BeatsPerMinute>();
+    UVM_GameplayCustomization* VM_BeatsPerMinuteInstance = NewObject<UVM_GameplayCustomization>();
     VM_BeatsPerMinuteInstance->Initialize(CurrentWorldSettings);
 
     GlobalViewModelCollection->AddViewModelInstance(UUIFunctionLibrary::MakeViewModelContext(
-                                                        UVM_BeatsPerMinute::StaticClass()),
+                                                        UVM_GameplayCustomization::StaticClass()),
                                                     VM_BeatsPerMinuteInstance);
 
     return true;
