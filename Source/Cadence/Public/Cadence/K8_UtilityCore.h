@@ -56,4 +56,13 @@ static T* TryFindAsset()
 
     return nullptr;
 }
+
+CADENCE_API extern void GetAssetDataOfClass(UClass* AssetClass, TArray<FAssetData>& Assets);
+
+CADENCE_API extern int32 FindAssetIndexByObjectPath(const TArray<FAssetData>& Assets,
+                                                    const FSoftObjectPath& TargetPath);
+
+CADENCE_API extern int32 FindAssetIndexByDisplayText(const TArray<FAssetData>& Assets,
+                                                     const FText& Text);
+
 }  // namespace K8::Utility

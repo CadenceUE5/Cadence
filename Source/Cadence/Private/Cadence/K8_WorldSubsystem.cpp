@@ -15,7 +15,6 @@ void UK8_WorldSubsystem::Deinitialize()
 
 bool UK8_WorldSubsystem::InitializeCadence(UK8_WorldSubsystemSettingsDataAsset const* DesiredSettings)
 {
-    K8_LOG(Error, "Given world settings not valid. Aborting...");
     if (!DesiredSettings)
     {
         K8_LOG(Error, "Given world settings not valid. Aborting...");

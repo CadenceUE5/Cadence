@@ -9,28 +9,64 @@
 
 #include "WorldSubsystemSettingsViewModel.generated.h"
 
-UINTERFACE(MinimalAPI, NotBlueprintable)
-class UK8_ViewModelInterface : public UInterface
-{
-    GENERATED_BODY()
-};
-
-class IK8_ViewModelInterface
+UCLASS()
+class CADENCE_API UVM_WorldAesthetics : public UMVVMViewModelBase
 {
     GENERATED_BODY()
 
 public:
-    virtual bool Initialize(UK8_WorldSubsystemSettingsDataAsset* Settings) = 0;
+    bool Initialize(UK8_WorldSubsystemSettingsDataAsset* Settings);
+
+    UFUNCTION(BlueprintPure)
+    FText GetTemplateLoopAssetName() const;
+
+    UFUNCTION(BlueprintCallable)
+    void SetTemplateLoopAssetName(const FText& NewValue);
+
+    UFUNCTION(BlueprintCallable)
+    void SetNextTemplateLoopAssetName();
+
+    UFUNCTION(BlueprintCallable)
+    void SetPreviousTemplateLoopAssetName();
+
+    UFUNCTION(BlueprintPure)
+    FText GetGoalLoopAssetName() const;
+
+    UFUNCTION(BlueprintCallable)
+    void SetGoalLoopAssetName(const FText& NewValue);
+
+    UFUNCTION(BlueprintCallable)
+    void SetNextGoalLoopAssetName();
+
+    UFUNCTION(BlueprintCallable)
+    void SetPreviousGoalLoopAssetName();
+
+private:
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess = "true"))
+    FText TemplateLoopAssetName;
+
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess = "true"))
+    FText GoalLoopAssetName;
+
+    UK8_WorldSubsystemSettingsDataAsset* CurrentSettings;
+
+    int32 CurrentTemplateLoopIndex;
+    TArray<FAssetData> TemplateLoopAssetData;
+
+    int32 CurrentGoalLoopIndex;
+    TArray<FAssetData> GoalLoopAssetData;
+
+    bool SetTemplateLoopAssetFromCurrentIndex();
+    bool SetGoalLoopAssetFromCurrentIndex();
 };
 
 UCLASS()
-class CADENCE_API UVM_GameplayCustomization : public UMVVMViewModelBase,
-                                              public IK8_ViewModelInterface
+class CADENCE_API UVM_GameplayCustomization : public UMVVMViewModelBase
 {
     GENERATED_BODY()
 
 public:
-    virtual bool Initialize(UK8_WorldSubsystemSettingsDataAsset* Settings) override;
+    bool Initialize(UK8_WorldSubsystemSettingsDataAsset* Settings);
 
     UFUNCTION(BlueprintPure)
     float GetBeatsPerMinute() const;
@@ -69,22 +105,22 @@ public:
     void SetGrabbableOutlineLineWidth(const float& NewValue);
 
 private:
-    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess = "true"))
     float BeatsPerMinute = -1.f;
 
-    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess = "true"))
     float TemplateLoopVolumeMultiplier = -1.f;
 
-    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess = "true"))
     float GoalLoopVolumeMultiplier = -1.f;
 
-    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess = "true"))
     float GrabbableHitImpulseVolumeNormalization = -1.f;
 
-    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess = "true"))
     float GrabbableHitDetectionFrequency = -1.f;
 
-    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess))
+    UPROPERTY(BlueprintReadWrite, FieldNotify, Setter, Getter, meta = (AllowPrivateAccess = "true"))
     float GrabbableOutlineLineWidth = -1.f;
 
     UK8_WorldSubsystemSettingsDataAsset* CurrentSettings;

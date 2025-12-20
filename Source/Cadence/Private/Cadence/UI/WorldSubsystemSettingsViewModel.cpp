@@ -2,8 +2,177 @@
 
 #include "Cadence/UI/WorldSubsystemSettingsViewModel.h"
 
-#include "Cadence/K8_GameInstanceBase.h"
 #include "Cadence/K8_UtilityCore.h"
+
+bool UVM_WorldAesthetics::Initialize(UK8_WorldSubsystemSettingsDataAsset* Settings)
+{
+    K8::Utility::GetAssetDataOfClass(UTemplateLoopPrimaryDataAsset::StaticClass(),
+                                     TemplateLoopAssetData);
+
+    K8::Utility::GetAssetDataOfClass(UGoalLoopPrimaryDataAsset::StaticClass(), GoalLoopAssetData);
+
+    FSoftObjectPath DefaultTemplateAssetPath(Settings->TemplateLoopAsset);
+
+    if (CurrentTemplateLoopIndex = K8::Utility::FindAssetIndexByObjectPath(TemplateLoopAssetData,
+                                                                           DefaultTemplateAssetPath);
+        CurrentTemplateLoopIndex == INDEX_NONE)
+    {
+        CurrentTemplateLoopIndex = 0;
+    }
+
+    const FSoftObjectPath DefaultGoalLoopAssetPath(Settings->GoalLoopAsset);
+
+    if (CurrentGoalLoopIndex = K8::Utility::FindAssetIndexByObjectPath(GoalLoopAssetData,
+                                                                       DefaultGoalLoopAssetPath);
+        CurrentGoalLoopIndex == INDEX_NONE)
+    {
+        CurrentGoalLoopIndex = 0;
+    }
+
+    CurrentSettings = Settings;
+
+    return SetTemplateLoopAssetFromCurrentIndex() && SetGoalLoopAssetFromCurrentIndex();
+}
+
+FText UVM_WorldAesthetics::GetTemplateLoopAssetName() const
+{
+    if (TemplateLoopAssetData.IsValidIndex(CurrentTemplateLoopIndex))
+    {
+        return FText::FromName(TemplateLoopAssetData[CurrentTemplateLoopIndex].AssetName);
+    }
+
+    return FText::GetEmpty();
+}
+
+void UVM_WorldAesthetics::SetTemplateLoopAssetName(const FText& NewValue)
+{
+    if (CurrentSettings)
+    {
+        const int32 NewIndex = K8::Utility::FindAssetIndexByDisplayText(TemplateLoopAssetData,
+                                                                        NewValue);
+
+        if (NewIndex == INDEX_NONE)
+        {
+            return;
+        }
+
+        const FText NewText = FText::FromName(TemplateLoopAssetData[NewIndex].AssetName);
+
+        if (!UE_MVVM_SET_PROPERTY_VALUE(TemplateLoopAssetName, NewText))
+        {
+            return;
+        }
+
+        CurrentTemplateLoopIndex = NewIndex;
+
+        CurrentSettings->TemplateLoopAsset = Cast<UTemplateLoopPrimaryDataAsset>(
+            TemplateLoopAssetData[CurrentTemplateLoopIndex].GetAsset());
+    }
+}
+
+void UVM_WorldAesthetics::SetNextTemplateLoopAssetName()
+{
+    CurrentTemplateLoopIndex = (CurrentTemplateLoopIndex + 1) % TemplateLoopAssetData.Num();
+
+    if (SetTemplateLoopAssetFromCurrentIndex() && CurrentSettings)
+    {
+        CurrentSettings->TemplateLoopAsset = Cast<UTemplateLoopPrimaryDataAsset>(
+            TemplateLoopAssetData[CurrentTemplateLoopIndex].GetAsset());
+    }
+}
+
+void UVM_WorldAesthetics::SetPreviousTemplateLoopAssetName()
+{
+    CurrentTemplateLoopIndex = (CurrentTemplateLoopIndex - 1 + TemplateLoopAssetData.Num())
+                               % TemplateLoopAssetData.Num();
+
+    if (SetTemplateLoopAssetFromCurrentIndex() && CurrentSettings)
+    {
+        CurrentSettings->TemplateLoopAsset = Cast<UTemplateLoopPrimaryDataAsset>(
+            TemplateLoopAssetData[CurrentTemplateLoopIndex].GetAsset());
+    }
+}
+
+FText UVM_WorldAesthetics::GetGoalLoopAssetName() const
+{
+    if (GoalLoopAssetData.IsValidIndex(CurrentGoalLoopIndex))
+    {
+        return FText::FromName(GoalLoopAssetData[CurrentGoalLoopIndex].AssetName);
+    }
+
+    return FText::GetEmpty();
+}
+
+void UVM_WorldAesthetics::SetGoalLoopAssetName(const FText& NewValue)
+{
+    if (CurrentSettings)
+    {
+        const int32 NewIndex = K8::Utility::FindAssetIndexByDisplayText(GoalLoopAssetData, NewValue);
+
+        if (NewIndex == INDEX_NONE)
+        {
+            return;
+        }
+
+        const FText NewText = FText::FromName(GoalLoopAssetData[NewIndex].AssetName);
+
+        if (!UE_MVVM_SET_PROPERTY_VALUE(GoalLoopAssetName, NewText))
+        {
+            return;
+        }
+
+        CurrentGoalLoopIndex = NewIndex;
+
+        CurrentSettings->GoalLoopAsset = Cast<UGoalLoopPrimaryDataAsset>(
+            GoalLoopAssetData[CurrentGoalLoopIndex].GetAsset());
+    }
+}
+
+void UVM_WorldAesthetics::SetNextGoalLoopAssetName()
+{
+    CurrentGoalLoopIndex = (CurrentGoalLoopIndex + 1) % GoalLoopAssetData.Num();
+
+    if (SetGoalLoopAssetFromCurrentIndex() && CurrentSettings)
+    {
+        CurrentSettings->GoalLoopAsset = Cast<UGoalLoopPrimaryDataAsset>(
+            GoalLoopAssetData[CurrentGoalLoopIndex].GetAsset());
+    }
+}
+
+void UVM_WorldAesthetics::SetPreviousGoalLoopAssetName()
+{
+    CurrentGoalLoopIndex = (CurrentGoalLoopIndex - 1 + GoalLoopAssetData.Num())
+                           % GoalLoopAssetData.Num();
+
+    if (SetGoalLoopAssetFromCurrentIndex() && CurrentSettings)
+    {
+        CurrentSettings->GoalLoopAsset = Cast<UGoalLoopPrimaryDataAsset>(
+            GoalLoopAssetData[CurrentGoalLoopIndex].GetAsset());
+    }
+}
+
+bool UVM_WorldAesthetics::SetTemplateLoopAssetFromCurrentIndex()
+{
+    if (TemplateLoopAssetData.IsValidIndex(CurrentTemplateLoopIndex))
+    {
+        return UE_MVVM_SET_PROPERTY_VALUE(TemplateLoopAssetName,
+                                          FText::FromName(
+                                              TemplateLoopAssetData[CurrentTemplateLoopIndex]
+                                                  .AssetName));
+    }
+    return false;
+}
+
+bool UVM_WorldAesthetics::SetGoalLoopAssetFromCurrentIndex()
+{
+    if (GoalLoopAssetData.IsValidIndex(CurrentGoalLoopIndex))
+    {
+        return UE_MVVM_SET_PROPERTY_VALUE(GoalLoopAssetName,
+                                          FText::FromName(
+                                              GoalLoopAssetData[CurrentGoalLoopIndex].AssetName));
+    }
+    return false;
+}
 
 bool UVM_GameplayCustomization::Initialize(UK8_WorldSubsystemSettingsDataAsset* Settings)
 {

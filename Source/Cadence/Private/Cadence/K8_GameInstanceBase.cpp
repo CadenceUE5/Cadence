@@ -69,12 +69,20 @@ bool UK8_GameInstanceBase::ConstructAllViewModels()
         return false;
     }
 
-    UVM_GameplayCustomization* VM_BeatsPerMinuteInstance = NewObject<UVM_GameplayCustomization>();
-    VM_BeatsPerMinuteInstance->Initialize(CurrentWorldSettings);
+    UVM_WorldAesthetics* VM_WorldAestheticsInstance = NewObject<UVM_WorldAesthetics>();
+    VM_WorldAestheticsInstance->Initialize(CurrentWorldSettings);
+
+    GlobalViewModelCollection->AddViewModelInstance(UUIFunctionLibrary::MakeViewModelContext(
+                                                        UVM_WorldAesthetics::StaticClass()),
+                                                    VM_WorldAestheticsInstance);
+
+    UVM_GameplayCustomization* VM_GameplayCustomizationInstance
+        = NewObject<UVM_GameplayCustomization>();
+    VM_GameplayCustomizationInstance->Initialize(CurrentWorldSettings);
 
     GlobalViewModelCollection->AddViewModelInstance(UUIFunctionLibrary::MakeViewModelContext(
                                                         UVM_GameplayCustomization::StaticClass()),
-                                                    VM_BeatsPerMinuteInstance);
+                                                    VM_GameplayCustomizationInstance);
 
     return true;
 }
